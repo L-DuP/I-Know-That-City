@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Know That City!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -13,26 +14,31 @@
             margin: 0;
             background-color: #f0f0f0;
             overflow: hidden;
+            position: relative;
         }
 
         #globe {
-            width: 300px; /* Adjust size as needed */
-            transition: transform 1s ease;
+            width: 400px; /* Adjust size as needed */
+            transition: transform 0.2s ease;
+            position: absolute;
+            bottom: 50px; /* Initial position above the bottom */
         }
 
         #title {
-            font-family: 'Arial', sans-serif; /* Change to your artistic font */
-            font-size: 48px; /* Adjust size as needed */
+            font-family: 'Rubik Vinyl', cursive;
+            font-size: 64px; /* Adjust size as needed */
             font-weight: bold;
             position: absolute;
+            bottom: 450px; /* Position above the globe */
+            color: #ff6347; /* Change this to match the globe colors */
             opacity: 0;
             transition: opacity 1s ease;
         }
     </style>
 </head>
 <body>
-    <img id="globe" src="images/globe.png" alt="Spinning Globe" />
     <div id="title">I Know That City!</div>
+    <img id="globe" src="images/globe.png" alt="Spinning Globe" />
 
     <script>
         const globe = document.getElementById('globe');
@@ -44,29 +50,27 @@
         };
 
         globe.onclick = () => {
-            // Start the drop and bounce animation
-            globe.style.transition = 'transform 0.2s ease';
-            globe.style.transform = 'translateY(200px)'; // Drop distance
-
-            setTimeout(() => {
-                globe.style.transition = 'transform 0.5s ease';
-                globe.style.transform = 'translateY(0)'; // Bounce back
-            }, 200);
+            // Start the drop animation
+            globe.style.transition = 'transform 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)'; // Easing for a more realistic drop
+            globe.style.transform = 'translateY(400px)'; // Drop distance
 
             // Fade out the title
             title.style.opacity = 0;
 
-            // Repeat bounce for about 5 seconds
-            let bounceCount = 5;
-            const bounceInterval = setInterval(() => {
-                globe.style.transform = globe.style.transform === 'translateY(0)' ? 'translateY(10px)' : 'translateY(0)';
-                bounceCount--;
+            // Set a timeout for the bounce effect
+            setTimeout(() => {
+                // Bounce effect
+                let bounceCount = 5;
+                const bounceInterval = setInterval(() => {
+                    globe.style.transform = globe.style.transform === 'translateY(0)' ? 'translateY(-20px)' : 'translateY(0)';
+                    bounceCount--;
 
-                if (bounceCount <= 0) {
-                    clearInterval(bounceInterval);
-                    globe.style.transform = 'translateY(0)'; // Ensure it ends at original position
-                }
-            }, 500);
+                    if (bounceCount <= 0) {
+                        clearInterval(bounceInterval);
+                        globe.style.transform = 'translateY(0)'; // Ensure it ends at original position
+                    }
+                }, 300); // Bounce interval
+            }, 500); // Delay before bouncing
         };
     </script>
 </body>
