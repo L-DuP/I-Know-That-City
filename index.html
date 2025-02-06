@@ -15,7 +15,7 @@
             margin: 0;
             background-color: #f0f0f0;
             overflow: hidden;
-            flex-direction: column; /* Center items vertically */
+            flex-direction: column;
         }
 
         #globe {
@@ -116,7 +116,7 @@
 
         let attempts = 0;
         const maxAttempts = 3;
-        let currentCity; // Variable to hold the current city
+        let currentCity;
 
         // Fade in the title
         window.onload = () => {
@@ -124,39 +124,39 @@
         };
 
         globe.onclick = () => {
-            // Gradually enlarge the globe
             globe.style.transform = 'scale(1.5)'; // Increase size
             globe.style.opacity = 0; // Fade out
-
-            // Fade out the title
             title.style.opacity = 0;
 
-            // Wait for the globe to fade before displaying the description
             setTimeout(() => {
-                // Display a random city description
-                currentCity = cities[Math.floor(Math.random() * cities.length)]; // Store the current city
+                currentCity = cities[Math.floor(Math.random() * cities.length)];
                 cityDescription.innerText = currentCity.description;
                 cityDescription.style.display = 'block';
-                inputContainer.style.display = 'flex'; // Show input container
-                cityInput.focus(); // Focus on the input field
+                inputContainer.style.display = 'flex';
+                cityInput.focus();
 
-                // Handle submit button click
                 submitButton.onclick = () => {
                     const userGuess = cityInput.value.trim();
                     if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
-                        // Correct guess
                         resultImage.src = currentCity.image;
                         resultImage.style.display = 'block';
                         cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
-                        inputContainer.style.display = 'none'; // Hide input after winning
+                        inputContainer.style.display = 'none';
                     } else {
                         attempts++;
+                        const wrongMessage = "Wrong! Try again.";
+                        cityDescription.innerText = wrongMessage;
+
+                        // Hide the wrong message after 2 seconds and show the original description again
+                        setTimeout(() => {
+                            cityDescription.innerText = currentCity.description;
+                        }, 2000); // Change message back after 2 seconds
+
                         if (attempts < maxAttempts) {
                             cityInput.value = ''; // Clear input for the next guess
-                            cityDescription.innerText = "Wrong! Try again.";
                         } else {
                             cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
-                            inputContainer.style.display = 'none'; // Hide input after losing
+                            inputContainer.style.display = 'none';
                         }
                     }
                 };
