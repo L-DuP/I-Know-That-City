@@ -158,6 +158,11 @@
                         } else {
                             cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
                             inputContainer.style.display = 'none';
+
+                            // Reset to the start after 3 seconds
+                            setTimeout(() => {
+                                location.reload(); // Reload the page
+                            }, 3000); // Change page after 3 seconds
                         }
                     }
                 };
