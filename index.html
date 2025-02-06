@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Know That City!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -23,7 +23,7 @@
         }
 
         #title {
-            font-family: 'Rubik Vinyl', cursive;
+            font-family: 'Sour Gummy', cursive;
             font-size: 64px; /* Adjust size as needed */
             font-weight: bold;
             color: black; /* Font color set to black */
@@ -33,10 +33,18 @@
         }
 
         #cityDescription {
+            font-family: 'Sour Gummy', cursive;
             font-size: 24px; /* Adjust size as needed */
             margin: 20px 0; /* Space around description */
             text-align: center;
             display: none; /* Hidden initially */
+            width: 80%; /* Set a width to create a box effect */
+            max-width: 600px; /* Maximum width */
+            background-color: white; /* Background color for the box */
+            border: 2px solid #ccc; /* Border around the box */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding inside the box */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
         }
 
         #inputContainer {
@@ -118,31 +126,34 @@
             // Fade out the title
             title.style.opacity = 0;
 
-            // Display a random city description
-            const randomCity = cities[Math.floor(Math.random() * cities.length)];
-            cityDescription.innerText = randomCity.description;
-            cityDescription.style.display = 'block';
-            inputContainer.style.display = 'flex'; // Show input container
+            // Wait for the globe to fade before displaying the description
+            setTimeout(() => {
+                // Display a random city description
+                const randomCity = cities[Math.floor(Math.random() * cities.length)];
+                cityDescription.innerText = randomCity.description;
+                cityDescription.style.display = 'block';
+                inputContainer.style.display = 'flex'; // Show input container
 
-            // Handle submit button click
-            submitButton.onclick = () => {
-                const userGuess = cityInput.value.trim();
-                if (userGuess.toLowerCase() === randomCity.name.toLowerCase()) {
-                    // Correct guess
-                    resultImage.src = randomCity.image;
-                    resultImage.style.display = 'block';
-                    cityDescription.innerText = "Correct! The city is " + randomCity.name + ".";
-                } else {
-                    attempts++;
-                    if (attempts < maxAttempts) {
-                        cityInput.value = ''; // Clear input
-                        cityDescription.innerText = "Wrong! Try again.";
+                // Handle submit button click
+                submitButton.onclick = () => {
+                    const userGuess = cityInput.value.trim();
+                    if (userGuess.toLowerCase() === randomCity.name.toLowerCase()) {
+                        // Correct guess
+                        resultImage.src = randomCity.image;
+                        resultImage.style.display = 'block';
+                        cityDescription.innerText = "Correct! The city is " + randomCity.name + ".";
                     } else {
-                        cityDescription.innerText = "Game over! The correct city was " + randomCity.name + ".";
-                        inputContainer.style.display = 'none'; // Hide input after losing
+                        attempts++;
+                        if (attempts < maxAttempts) {
+                            cityInput.value = ''; // Clear input
+                            cityDescription.innerText = "Wrong! Try again.";
+                        } else {
+                            cityDescription.innerText = "Game over! The correct city was " + randomCity.name + ".";
+                            inputContainer.style.display = 'none'; // Hide input after losing
+                        }
                     }
-                }
-            };
+                };
+            }, 3000); // Wait for 3 seconds before showing the description
         };
     </script>
 </body>
