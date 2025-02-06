@@ -129,6 +129,7 @@
             title.style.opacity = 0;
 
             setTimeout(() => {
+                globe.style.display = 'none'; // Remove globe from the DOM
                 currentCity = cities[Math.floor(Math.random() * cities.length)];
                 cityDescription.innerText = currentCity.description;
                 cityDescription.style.display = 'block';
