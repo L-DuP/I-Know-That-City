@@ -3,285 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Circles</title>
+    <title>I Know That City!</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #222;
+            margin: 0;
+            background-color: #f0f0f0;
             overflow: hidden;
-            position: relative;
-            color: white;
-            font-family: Arial, sans-serif;
         }
 
-        .circle {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 1s ease-in-out;
+        #globe {
+            width: 300px; /* Adjust size as needed */
+            transition: transform 1s ease;
         }
 
-        .red {
-            background-color: red;
-            left: 30%;
-        }
-
-        .blue {
-            background-color: blue;
-            left: 60%;
-        }
-
-        .enlarged {
-            transform: scale(2);
-            transition: transform 1s ease-in-out;
-        }
-
-        .text {
-            position: absolute;
-            font-size: 24px;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .input-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        input {
-            padding: 10px;
-            font-size: 18px;
-            width: 150px; /* Increased width for location input */
-            text-align: center;
-            margin-right: 10px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .button:disabled {
-            background-color: gray;
-            cursor: not-allowed;
-        }
-
-        .result {
-            margin-top: 20px;
-            font-size: 24px;
-        }
-
-        .flash-number {
-            position: absolute;
-            top: 30%; /* Adjusted position higher */
-            font-size: 100px;
+        #title {
+            font-family: 'Arial', sans-serif; /* Change to your artistic font */
+            font-size: 48px; /* Adjust size as needed */
             font-weight: bold;
-            color: yellow;
-            opacity: 1;
-            animation: flash 1s infinite alternate;
-        }
-
-        @keyframes flash {
-            0% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-
-        .map-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .map {
-            width: 80%;
-            height: 300px;
-            margin: 20px 0;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
     </style>
 </head>
 <body>
-
-    <div class="circle red" id="red"></div>
-    <div class="circle blue" id="blue"></div>
-    <div class="text" id="message">You did the right thing</div>
-
-    <div class="input-container hidden" id="game">
-        <p>Enter a number between 1-100</p>
-        <input type="number" id="userNumber" min="1" max="100">
-        <button class="button" id="testLuck">Test your luck</button>
-        <p class="result" id="result"></p>
-    </div>
-
-    <div class="flash-number hidden" id="randomNumberDisplay"></div>
-
-    <div class="map-container hidden" id="mapContainer">
-        <iframe id="map" class="map" src="" frameborder="0" allowfullscreen></iframe>
-        <p>Look where fate has taken you... Can you tell?</p>
-        <input type="text" id="locationInput" placeholder="Enter a location">
-        <button class="button" id="confirmLocation">Confirm</button>
-        <p id="finalMessage"></p>
-    </div>
+    <img id="globe" src="images/globe.png" alt="Spinning Globe" />
+    <div id="title">I Know That City!</div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const red = document.getElementById("red");
-            const blue = document.getElementById("blue");
-            const message = document.getElementById("message");
-            const game = document.getElementById("game");
-            const userNumberInput = document.getElementById("userNumber");
-            const testLuckButton = document.getElementById("testLuck");
-            const resultText = document.getElementById("result");
-            const randomNumberDisplay = document.getElementById("randomNumberDisplay");
-            const mapContainer = document.getElementById("mapContainer");
-            const map = document.getElementById("map");
-            const locationInput = document.getElementById("locationInput");
-            const confirmLocationButton = document.getElementById("confirmLocation");
-            const finalMessage = document.getElementById("finalMessage");
+        const globe = document.getElementById('globe');
+        const title = document.getElementById('title');
 
-            let hasClicked = false;
-            let gamePlayed = false;
+        // Fade in the title
+        window.onload = () => {
+            title.style.opacity = 1;
+        };
 
-            function fallAnimation(circle) {
-                let velocity = 0;
-                let position = 0;
-                let gravity = 0.5;
-                let bounceFactor = 0.7;
-                let isFalling = true;
+        globe.onclick = () => {
+            // Start the drop and bounce animation
+            globe.style.transition = 'transform 0.2s ease';
+            globe.style.transform = 'translateY(200px)'; // Drop distance
 
-                function animate() {
-                    velocity += gravity;
-                    position += velocity;
+            setTimeout(() => {
+                globe.style.transition = 'transform 0.5s ease';
+                globe.style.transform = 'translateY(0)'; // Bounce back
+            }, 200);
 
-                    if (position + 100 >= window.innerHeight) {
-                        position = window.innerHeight - 100;
-                        velocity *= -bounceFactor;
-                    }
+            // Fade out the title
+            title.style.opacity = 0;
 
-                    circle.style.top = position + "px";
+            // Repeat bounce for about 5 seconds
+            let bounceCount = 5;
+            const bounceInterval = setInterval(() => {
+                globe.style.transform = globe.style.transform === 'translateY(0)' ? 'translateY(10px)' : 'translateY(0)';
+                bounceCount--;
 
-                    if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        isFalling = false;
-                    }
+                if (bounceCount <= 0) {
+                    clearInterval(bounceInterval);
+                    globe.style.transform = 'translateY(0)'; // Ensure it ends at original position
                 }
-                animate();
-            }
-
-            function enlargeAndShowText(circle) {
-                circle.classList.add("enlarged");
-                message.style.top = (window.innerHeight / 2) + "px";
-                message.style.left = (window.innerWidth / 2 - 100) + "px";
-                setTimeout(() => {
-                    message.style.opacity = "1";
-                }, 500);
-
-                setTimeout(() => {
-                    message.style.opacity = "0";
-                    setTimeout(() => {
-                        game.classList.remove("hidden");
-                    }, 2000);
-                }, 5000);
-            }
-
-            function disableClicks() {
-                red.style.pointerEvents = "none";
-                blue.style.pointerEvents = "none";
-            }
-
-            red.addEventListener("click", () => {
-                if (!hasClicked) {
-                    hasClicked = true;
-                    fallAnimation(red);
-                    enlargeAndShowText(blue);
-                    disableClicks();
-                }
-            });
-
-            blue.addEventListener("click", () => {
-                if (!hasClicked) {
-                    hasClicked = true;
-                    fallAnimation(blue);
-                    enlargeAndShowText(red);
-                    disableClicks();
-                }
-            });
-
-            testLuckButton.addEventListener("click", () => {
-                if (!gamePlayed) {
-                    const userNumber = parseInt(userNumberInput.value, 10);
-                    if (userNumber >= 1 && userNumber <= 100) {
-                        gamePlayed = true;
-                        testLuckButton.disabled = true;
-
-                        const randomNumber = Math.floor(Math.random() * 100) + 1;
-                        randomNumberDisplay.textContent = randomNumber;
-                        randomNumberDisplay.classList.remove("hidden");
-
-                        setTimeout(() => {
-                            if (userNumber === randomNumber) {
-                                resultText.textContent = "YOU MATCHED!";
-                            } else {
-                                resultText.textContent = "Your fate neglects you";
-                                // Show map after the result
-                                setTimeout(() => {
-                                    document.body.innerHTML = ''; // Clear previous content
-                                    const randomLatitude = (Math.random() * 180 - 90).toFixed(6);
-                                    const randomLongitude = (Math.random() * 360 - 180).toFixed(6);
-                                    map.src = `https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=${randomLatitude},${randomLongitude}&zoom=10`; // Replace with your Google Maps API key
-                                    mapContainer.classList.remove("hidden");
-                                }, 5000); // Show map after 5 seconds
-                            }
-                        }, 3000); // Show result after flashing number for 3 seconds
-                    } else {
-                        resultText.textContent = "Enter a valid number (1-100)";
-                    }
-                }
-            });
-
-            confirmLocationButton.addEventListener("click", () => {
-                const userLocation = locationInput.value;
-                if (userLocation) {
-                    finalMessage.textContent = "Life is not about where it takes you. But where it doesn't.";
-                    setTimeout(() => {
-                        document.body.innerHTML = ''; // Clear the screen again
-                        // Restart with new message
-                        const restartMessage = document.createElement('p');
-                        restartMessage.textContent = "Do you want life to take you nowhere again?";
-                        document.body.appendChild(restartMessage);
-                        document.body.appendChild(red);
-                        document.body.appendChild(blue);
-                        document.body.appendChild(message);
-                        document.body.appendChild(game);
-                        document.body.appendChild(randomNumberDisplay);
-                        document.body.appendChild(mapContainer);
-                        // Reset game state
-                        hasClicked = false;
-                        gamePlayed = false;
-                        randomNumberDisplay.classList.add("hidden");
-                        message.style.opacity = "0";
-                        finalMessage.textContent = '';
-                        locationInput.value = '';
-                    }, 3000); // Display final message for 3 seconds
-                }
-            });
-        });
+            }, 500);
+        };
     </script>
-
 </body>
 </html>
