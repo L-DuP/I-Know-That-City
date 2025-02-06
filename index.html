@@ -3,7 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phclass="result" id="result"></p>
+    <title>Physics Circles</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            overflow: hidden;
+            position: relative;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 1s ease-in-out;
+        }
+
+        .red { background-color: red; left: 30%; top: 20%; }
+        .blue { background-color: blue; left: 60%; top: 20%; }
+
+        .enlarged { transform: scale(2); transition: transform 1s ease-in-out; }
+
+        .text { position: absolute; font-size: 24px; opacity: 0; transition: opacity 2s ease-in-out; }
+
+        .hidden { display: none; }
+
+        .input-container { text-align: center; margin-top: 20px; }
+
+        input { padding: 10px; font-size: 18px; width: 50px; text-align: center; margin-right: 10px; }
+        .button { padding: 10px 20px; font-size: 18px; background-color: red; color: white; border: none; cursor: pointer; }
+        .button:disabled { background-color: gray; cursor: not-allowed; }
+
+        .result { margin-top: 20px; font-size: 24px; }
+        .flash-number { position: absolute; top: 20%; font-size: 100px; font-weight: bold; color: yellow; opacity: 1; animation: flash 1s infinite alternate; }
+        @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0.2; } }
+
+        .map-container { width: 600px; height: 400px; background-color: black; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="circle red" id="red"></div>
+    <div class="circle blue" id="blue"></div>
+    <div class="text" id="message">You did the right thing</div>
+    
+    <div class="input-container hidden" id="game">
+        <p>Enter a number between 1-100</p>
+        <input type="number" id="userNumber" min="1" max="100">
+        <button class="button" id="testLuck">Test your luck</button>
+        <p class="result" id="result"></p>
     </div>
     
     <div class="flash-number hidden" id="randomNumberDisplay"></div>
@@ -37,7 +92,7 @@
 
             function fallAnimation(circle) {
                 let velocity = 0;
-                let position = 0;
+                let position = circle.offsetTop;
                 let gravity = 0.5;
                 let bounceFactor = 0.7;
 
@@ -51,9 +106,18 @@
                     circle.style.top = position + "px";
                     if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
                         requestAnimationFrame(animate);
+                    } else {
+                        setTimeout(() => {
+                            message.style.opacity = 1;
+                            setTimeout(startGame, 5000);
+                        }, 1000);
                     }
                 }
                 animate();
+            }
+
+            function startGame() {
+                game.classList.remove("hidden");
             }
 
             function showMap() {
@@ -80,67 +144,13 @@
                             resultText.textContent = userNumber === randomNumber ? "YOU MATCHED!" : "Your fate neglects you";
                             setTimeout(showMap, 5000);
                         }, 3000);
-                    } else {
-                        resultText.textContent = "Enter a valid number (1-100)";
                     }
                 }
             });
+
+            red.addEventListener("click", () => { if (!hasClicked) { hasClicked = true; fallAnimation(red); blue.classList.add("enlarged"); } });
+            blue.addEventListener("click", () => { if (!hasClicked) { hasClicked = true; fallAnimation(blue); red.classList.add("enlarged"); } });
         });
     </script>
 </body>
-</html>ysics Circles</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #222;
-            overflow: hidden;
-            position: relative;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-
-        .circle {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 1s ease-in-out;
-        }
-
-        .red { background-color: red; left: 30%; }
-        .blue { background-color: blue; left: 60%; }
-
-        .enlarged { transform: scale(2); transition: transform 1s ease-in-out; }
-
-        .text { position: absolute; font-size: 24px; opacity: 0; transition: opacity 2s ease-in-out; }
-
-        .hidden { display: none; }
-
-        .input-container { text-align: center; margin-top: 20px; }
-
-        input { padding: 10px; font-size: 18px; width: 50px; text-align: center; margin-right: 10px; }
-        .button { padding: 10px 20px; font-size: 18px; background-color: red; color: white; border: none; cursor: pointer; }
-        .button:disabled { background-color: gray; cursor: not-allowed; }
-
-        .result { margin-top: 20px; font-size: 24px; }
-        .flash-number { position: absolute; top: 20%; font-size: 100px; font-weight: bold; color: yellow; opacity: 1; animation: flash 1s infinite alternate; }
-        @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0.2; } }
-
-        .map-container { width: 600px; height: 400px; background-color: black; margin-top: 20px; }
-    </style>
-</head>
-<body>
-    <div class="circle red" id="red"></div>
-    <div class="circle blue" id="blue"></div>
-    <div class="text" id="message">You did the right thing</div>
-    
-    <div class="input-container hidden" id="game">
-        <p>Enter a number between 1-100</p>
-        <input type="number" id="userNumber" min="1" max="100">
-        <button class="button" id="testLuck">Test your luck</button>
-        <p 
+</html>
