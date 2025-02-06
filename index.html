@@ -145,23 +145,23 @@
                         inputContainer.style.display = 'none';
                     } else {
                         attempts++;
-                        const wrongMessage = "Wrong! Try again.";
-                        cityDescription.innerText = wrongMessage;
+                        if (attempts < maxAttempts) {
+                            const wrongMessage = "Wrong! Try again.";
+                            cityDescription.innerText = wrongMessage;
 
-                        // Hide the wrong message after 2 seconds and show the original description again
-                        setTimeout(() => {
-                            if (attempts < maxAttempts) {
+                            // Hide the wrong message after 2 seconds and show the original description again
+                            setTimeout(() => {
                                 cityDescription.innerText = currentCity.description; // Show original description again
                                 cityInput.value = ''; // Clear input for the next guess
-                            } else {
-                                cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
-                                inputContainer.style.display = 'none'; // Hide input container
-                                // Reset to the start after 3 seconds
-                                setTimeout(() => {
-                                    location.reload(); // Reload the page
-                                }, 3000); // Change page after 3 seconds
-                            }
-                        }, 2000); // Change message back after 2 seconds
+                            }, 2000); // Change message back after 2 seconds
+                        } else {
+                            cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
+                            inputContainer.style.display = 'none'; // Hide input container
+                            // Reset to the start after 3 seconds
+                            setTimeout(() => {
+                                location.reload(); // Reload the page
+                            }, 3000); // Change page after 3 seconds
+                        }
                     }
                 };
             }, 3000); // Wait for 3 seconds before showing the description
