@@ -14,25 +14,22 @@
             margin: 0;
             background-color: #f0f0f0;
             overflow: hidden;
-            position: relative;
+            flex-direction: column; /* Center items vertically */
         }
 
         #globe {
             width: 400px; /* Adjust size as needed */
             transition: transform 0.2s ease;
-            position: absolute;
-            bottom: 50px; /* Initial position above the bottom */
         }
 
         #title {
             font-family: 'Rubik Vinyl', cursive;
             font-size: 64px; /* Adjust size as needed */
             font-weight: bold;
-            position: absolute;
-            bottom: 450px; /* Position above the globe */
-            color: #ff6347; /* Change this to match the globe colors */
+            color: black; /* Font color set to black */
             opacity: 0;
             transition: opacity 1s ease;
+            margin-bottom: 20px; /* Space between title and globe */
         }
     </style>
 </head>
@@ -51,7 +48,7 @@
 
         globe.onclick = () => {
             // Start the drop animation
-            globe.style.transition = 'transform 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)'; // Easing for a more realistic drop
+            globe.style.transition = 'transform 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)'; // Easing for realistic drop
             globe.style.transform = 'translateY(400px)'; // Drop distance
 
             // Fade out the title
@@ -60,16 +57,17 @@
             // Set a timeout for the bounce effect
             setTimeout(() => {
                 // Bounce effect
-                let bounceCount = 5;
+                let bounceCount = 10; // Number of bounces
+                const bounceHeight = 30; // Height of each bounce
                 const bounceInterval = setInterval(() => {
-                    globe.style.transform = globe.style.transform === 'translateY(0)' ? 'translateY(-20px)' : 'translateY(0)';
+                    globe.style.transform = globe.style.transform === 'translateY(0)' ? `translateY(-${bounceHeight}px)` : 'translateY(0)';
                     bounceCount--;
 
                     if (bounceCount <= 0) {
                         clearInterval(bounceInterval);
                         globe.style.transform = 'translateY(0)'; // Ensure it ends at original position
                     }
-                }, 300); // Bounce interval
+                }, 200); // Bounce interval
             }, 500); // Delay before bouncing
         };
     </script>
