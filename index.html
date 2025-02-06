@@ -61,7 +61,7 @@
         input {
             padding: 10px;
             font-size: 18px;
-            width: 50px;
+            width: 150px; /* Increased width for location input */
             text-align: center;
             margin-right: 10px;
         }
@@ -87,7 +87,7 @@
 
         .flash-number {
             position: absolute;
-            top: 40%;
+            top: 30%; /* Adjusted position higher */
             font-size: 100px;
             font-weight: bold;
             color: yellow;
@@ -98,6 +98,19 @@
         @keyframes flash {
             0% { opacity: 1; }
             100% { opacity: 0.2; }
+        }
+
+        .map-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .map {
+            width: 80%;
+            height: 300px;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -116,6 +129,14 @@
 
     <div class="flash-number hidden" id="randomNumberDisplay"></div>
 
+    <div class="map-container hidden" id="mapContainer">
+        <iframe id="map" class="map" src="" frameborder="0" allowfullscreen></iframe>
+        <p>Look where fate has taken you... Can you tell?</p>
+        <input type="text" id="locationInput" placeholder="Enter a location">
+        <button class="button" id="confirmLocation">Confirm</button>
+        <p id="finalMessage"></p>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const red = document.getElementById("red");
@@ -126,6 +147,11 @@
             const testLuckButton = document.getElementById("testLuck");
             const resultText = document.getElementById("result");
             const randomNumberDisplay = document.getElementById("randomNumberDisplay");
+            const mapContainer = document.getElementById("mapContainer");
+            const map = document.getElementById("map");
+            const locationInput = document.getElementById("locationInput");
+            const confirmLocationButton = document.getElementById("confirmLocation");
+            const finalMessage = document.getElementById("finalMessage");
 
             let hasClicked = false;
             let gamePlayed = false;
@@ -214,9 +240,45 @@
                                 resultText.textContent = "Your fate neglects you";
                             }
                         }, 3000); // Show result after flashing number for 3 seconds
+
+                        // Show map after result
+                        setTimeout(() => {
+                            document.body.innerHTML = ''; // Clear previous content
+                            const randomLatitude = (Math.random() * 180 - 90).toFixed(6);
+                            const randomLongitude = (Math.random() * 360 - 180).toFixed(6);
+                            map.src = `https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=${randomLatitude},${randomLongitude}&zoom=10`; // Replace with your Google Maps API key
+                            mapContainer.classList.remove("hidden");
+                        }, 8000); // Show map after 8 seconds
                     } else {
                         resultText.textContent = "Enter a valid number (1-100)";
                     }
+                }
+            });
+
+            confirmLocationButton.addEventListener("click", () => {
+                const userLocation = locationInput.value;
+                if (userLocation) {
+                    finalMessage.textContent = "Life is not about where it takes you. But where it doesn't.";
+                    setTimeout(() => {
+                        document.body.innerHTML = ''; // Clear the screen again
+                        // Restart with new message
+                        const restartMessage = document.createElement('p');
+                        restartMessage.textContent = "Do you want life to take you nowhere again?";
+                        document.body.appendChild(restartMessage);
+                        document.body.appendChild(red);
+                        document.body.appendChild(blue);
+                        document.body.appendChild(message);
+                        document.body.appendChild(game);
+                        document.body.appendChild(randomNumberDisplay);
+                        document.body.appendChild(mapContainer);
+                        // Reset game state
+                        hasClicked = false;
+                        gamePlayed = false;
+                        randomNumberDisplay.classList.add("hidden");
+                        message.style.opacity = "0";
+                        finalMessage.textContent = '';
+                        locationInput.value = '';
+                    }, 3000); // Display final message for 3 seconds
                 }
             });
         });
