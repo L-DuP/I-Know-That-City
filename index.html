@@ -3,7 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Circles</title>
+    <title>Phclass="result" id="result"></p>
+    </div>
+    
+    <div class="flash-number hidden" id="randomNumberDisplay"></div>
+    
+    <div class="map-container hidden" id="map"></div>
+    <p class="hidden" id="fateText">Look where fate has taken you... Can you tell?</p>
+    <div class="input-container hidden" id="locationInput">
+        <input type="text" id="userLocation" placeholder="Enter location">
+        <button class="button" id="confirmLocation">Confirm</button>
+    </div>
+    <p class="hidden" id="finalMessage">Life is not about where it takes you. But where it doesn't.</p>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const red = document.getElementById("red");
+            const blue = document.getElementById("blue");
+            const message = document.getElementById("message");
+            const game = document.getElementById("game");
+            const userNumberInput = document.getElementById("userNumber");
+            const testLuckButton = document.getElementById("testLuck");
+            const resultText = document.getElementById("result");
+            const randomNumberDisplay = document.getElementById("randomNumberDisplay");
+            const map = document.getElementById("map");
+            const fateText = document.getElementById("fateText");
+            const locationInput = document.getElementById("locationInput");
+            const confirmLocation = document.getElementById("confirmLocation");
+            const finalMessage = document.getElementById("finalMessage");
+
+            let hasClicked = false;
+            let gamePlayed = false;
+
+            function fallAnimation(circle) {
+                let velocity = 0;
+                let position = 0;
+                let gravity = 0.5;
+                let bounceFactor = 0.7;
+
+                function animate() {
+                    velocity += gravity;
+                    position += velocity;
+                    if (position + 100 >= window.innerHeight) {
+                        position = window.innerHeight - 100;
+                        velocity *= -bounceFactor;
+                    }
+                    circle.style.top = position + "px";
+                    if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+                animate();
+            }
+
+            function showMap() {
+                map.classList.remove("hidden");
+                fateText.classList.remove("hidden");
+                locationInput.classList.remove("hidden");
+            }
+
+            confirmLocation.addEventListener("click", () => {
+                finalMessage.classList.remove("hidden");
+                setTimeout(() => location.reload(), 5000);
+            });
+
+            testLuckButton.addEventListener("click", () => {
+                if (!gamePlayed) {
+                    const userNumber = parseInt(userNumberInput.value, 10);
+                    if (userNumber >= 1 && userNumber <= 100) {
+                        gamePlayed = true;
+                        testLuckButton.disabled = true;
+                        const randomNumber = Math.floor(Math.random() * 100) + 1;
+                        randomNumberDisplay.textContent = randomNumber;
+                        randomNumberDisplay.classList.remove("hidden");
+                        setTimeout(() => {
+                            resultText.textContent = userNumber === randomNumber ? "YOU MATCHED!" : "Your fate neglects you";
+                            setTimeout(showMap, 5000);
+                        }, 3000);
+                    } else {
+                        resultText.textContent = "Enter a valid number (1-100)";
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>ysics Circles</title>
     <style>
         body {
             display: flex;
@@ -27,200 +112,35 @@
             transition: transform 1s ease-in-out;
         }
 
-        .red {
-            background-color: red;
-            left: 30%;
-        }
+        .red { background-color: red; left: 30%; }
+        .blue { background-color: blue; left: 60%; }
 
-        .blue {
-            background-color: blue;
-            left: 60%;
-        }
+        .enlarged { transform: scale(2); transition: transform 1s ease-in-out; }
 
-        .enlarged {
-            transform: scale(2);
-            transition: transform 1s ease-in-out;
-        }
+        .text { position: absolute; font-size: 24px; opacity: 0; transition: opacity 2s ease-in-out; }
 
-        .text {
-            position: absolute;
-            font-size: 24px;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
+        .hidden { display: none; }
 
-        .hidden {
-            display: none;
-        }
+        .input-container { text-align: center; margin-top: 20px; }
 
-        .input-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+        input { padding: 10px; font-size: 18px; width: 50px; text-align: center; margin-right: 10px; }
+        .button { padding: 10px 20px; font-size: 18px; background-color: red; color: white; border: none; cursor: pointer; }
+        .button:disabled { background-color: gray; cursor: not-allowed; }
 
-        input {
-            padding: 10px;
-            font-size: 18px;
-            width: 50px;
-            text-align: center;
-            margin-right: 10px;
-        }
+        .result { margin-top: 20px; font-size: 24px; }
+        .flash-number { position: absolute; top: 20%; font-size: 100px; font-weight: bold; color: yellow; opacity: 1; animation: flash 1s infinite alternate; }
+        @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0.2; } }
 
-        .button {
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .button:disabled {
-            background-color: gray;
-            cursor: not-allowed;
-        }
-
-        .result {
-            margin-top: 20px;
-            font-size: 24px;
-        }
-
-        .flash-number {
-            position: absolute;
-            top: 40%;
-            font-size: 100px;
-            font-weight: bold;
-            color: yellow;
-            opacity: 1;
-            animation: flash 1s infinite alternate;
-        }
-
-        @keyframes flash {
-            0% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
+        .map-container { width: 600px; height: 400px; background-color: black; margin-top: 20px; }
     </style>
 </head>
 <body>
-
     <div class="circle red" id="red"></div>
     <div class="circle blue" id="blue"></div>
     <div class="text" id="message">You did the right thing</div>
-
+    
     <div class="input-container hidden" id="game">
         <p>Enter a number between 1-100</p>
         <input type="number" id="userNumber" min="1" max="100">
         <button class="button" id="testLuck">Test your luck</button>
-        <p class="result" id="result"></p>
-    </div>
-
-    <div class="flash-number hidden" id="randomNumberDisplay"></div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const red = document.getElementById("red");
-            const blue = document.getElementById("blue");
-            const message = document.getElementById("message");
-            const game = document.getElementById("game");
-            const userNumberInput = document.getElementById("userNumber");
-            const testLuckButton = document.getElementById("testLuck");
-            const resultText = document.getElementById("result");
-            const randomNumberDisplay = document.getElementById("randomNumberDisplay");
-
-            let hasClicked = false;
-            let gamePlayed = false;
-
-            function fallAnimation(circle) {
-                let velocity = 0;
-                let position = 0;
-                let gravity = 0.5;
-                let bounceFactor = 0.7;
-                let isFalling = true;
-
-                function animate() {
-                    velocity += gravity;
-                    position += velocity;
-
-                    if (position + 100 >= window.innerHeight) {
-                        position = window.innerHeight - 100;
-                        velocity *= -bounceFactor;
-                    }
-
-                    circle.style.top = position + "px";
-
-                    if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        isFalling = false;
-                    }
-                }
-                animate();
-            }
-
-            function enlargeAndShowText(circle) {
-                circle.classList.add("enlarged");
-                message.style.top = (window.innerHeight / 2) + "px";
-                message.style.left = (window.innerWidth / 2 - 100) + "px";
-                setTimeout(() => {
-                    message.style.opacity = "1";
-                }, 500);
-
-                setTimeout(() => {
-                    message.style.opacity = "0";
-                    setTimeout(() => {
-                        game.classList.remove("hidden");
-                    }, 2000);
-                }, 5000);
-            }
-
-            function disableClicks() {
-                red.style.pointerEvents = "none";
-                blue.style.pointerEvents = "none";
-            }
-
-            red.addEventListener("click", () => {
-                if (!hasClicked) {
-                    hasClicked = true;
-                    fallAnimation(red);
-                    enlargeAndShowText(blue);
-                    disableClicks();
-                }
-            });
-
-            blue.addEventListener("click", () => {
-                if (!hasClicked) {
-                    hasClicked = true;
-                    fallAnimation(blue);
-                    enlargeAndShowText(red);
-                    disableClicks();
-                }
-            });
-
-            testLuckButton.addEventListener("click", () => {
-                if (!gamePlayed) {
-                    const userNumber = parseInt(userNumberInput.value, 10);
-                    if (userNumber >= 1 && userNumber <= 100) {
-                        gamePlayed = true;
-                        testLuckButton.disabled = true;
-
-                        const randomNumber = Math.floor(Math.random() * 100) + 1;
-                        randomNumberDisplay.textContent = randomNumber;
-                        randomNumberDisplay.classList.remove("hidden");
-
-                        setTimeout(() => {
-                            if (userNumber === randomNumber) {
-                                resultText.textContent = "YOU MATCHED!";
-                            } else {
-                                resultText.textContent = "Your fate neglects you";
-                            }
-                        }, 3000); // Show result after flashing number for 3 seconds
-                    } else {
-                        resultText.textContent = "Enter a valid number (1-100)";
-                    }
-                }
-            });
-        });
-    </script>
-
-</body>
-</html>
+        <p 
