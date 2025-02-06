@@ -38,16 +38,17 @@
 
         .input-container { text-align: center; margin-top: 20px; }
 
-        input { padding: 10px; font-size: 18px; width: 50px; text-align: center; margin-right: 10px; }
+        input { padding: 10px; font-size: 18px; width: 200px; text-align: center; margin-right: 10px; }
         .button { padding: 10px 20px; font-size: 18px; background-color: red; color: white; border: none; cursor: pointer; }
         .button:disabled { background-color: gray; cursor: not-allowed; }
 
         .result { margin-top: 20px; font-size: 24px; }
-        .flash-number { position: absolute; top: 20%; font-size: 100px; font-weight: bold; color: yellow; opacity: 1; animation: flash 1s infinite alternate; }
+        .flash-number { position: absolute; top: 10%; font-size: 100px; font-weight: bold; color: yellow; opacity: 1; animation: flash 1s infinite alternate; }
         @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0.2; } }
 
-        .map-container { width: 600px; height: 400px; background-color: black; margin-top: 20px; }
+        .map-container { width: 600px; height: 400px; margin-top: 20px; }
     </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </head>
 <body>
     <div class="circle red" id="red"></div>
@@ -72,6 +73,13 @@
     <p class="hidden" id="finalMessage">Life is not about where it takes you. But where it doesn't.</p>
     
     <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: (Math.random() * 180) - 90, lng: (Math.random() * 360) - 180 },
+                zoom: 4
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const red = document.getElementById("red");
             const blue = document.getElementById("blue");
@@ -81,7 +89,7 @@
             const testLuckButton = document.getElementById("testLuck");
             const resultText = document.getElementById("result");
             const randomNumberDisplay = document.getElementById("randomNumberDisplay");
-            const map = document.getElementById("map");
+            const mapContainer = document.getElementById("map");
             const fateText = document.getElementById("fateText");
             const locationInput = document.getElementById("locationInput");
             const confirmLocation = document.getElementById("confirmLocation");
@@ -109,47 +117,20 @@
                     } else {
                         setTimeout(() => {
                             message.style.opacity = 1;
-                            setTimeout(startGame, 5000);
+                            setTimeout(() => {
+                                message.style.opacity = 0;
+                                setTimeout(() => game.classList.remove("hidden"), 2000);
+                            }, 5000);
                         }, 1000);
                     }
                 }
                 animate();
             }
 
-            function startGame() {
-                game.classList.remove("hidden");
-            }
-
-            function showMap() {
-                map.classList.remove("hidden");
-                fateText.classList.remove("hidden");
-                locationInput.classList.remove("hidden");
-            }
-
             confirmLocation.addEventListener("click", () => {
                 finalMessage.classList.remove("hidden");
                 setTimeout(() => location.reload(), 5000);
             });
-
-            testLuckButton.addEventListener("click", () => {
-                if (!gamePlayed) {
-                    const userNumber = parseInt(userNumberInput.value, 10);
-                    if (userNumber >= 1 && userNumber <= 100) {
-                        gamePlayed = true;
-                        testLuckButton.disabled = true;
-                        const randomNumber = Math.floor(Math.random() * 100) + 1;
-                        randomNumberDisplay.textContent = randomNumber;
-                        randomNumberDisplay.classList.remove("hidden");
-                        setTimeout(() => {
-                            resultText.textContent = userNumber === randomNumber ? "YOU MATCHED!" : "Your fate neglects you";
-                            setTimeout(showMap, 5000);
-                        }, 3000);
-                    }
-                }
-            });
-
-            red.addEventListener("click", () => { if (!hasClicked) { hasClicked = true; fallAnimation(red); blue.classList.add("enlarged"); } });
-            blue.addEventListener("click", () => { if (!hasClicked) { hasClicked = true; fallAnimation(blue); red.classList.add("enlarged"); } });
         });
     </script>
 </body>
