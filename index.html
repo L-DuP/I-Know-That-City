@@ -238,17 +238,16 @@
                                 resultText.textContent = "YOU MATCHED!";
                             } else {
                                 resultText.textContent = "Your fate neglects you";
+                                // Show map after the result
+                                setTimeout(() => {
+                                    document.body.innerHTML = ''; // Clear previous content
+                                    const randomLatitude = (Math.random() * 180 - 90).toFixed(6);
+                                    const randomLongitude = (Math.random() * 360 - 180).toFixed(6);
+                                    map.src = `https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=${randomLatitude},${randomLongitude}&zoom=10`; // Replace with your Google Maps API key
+                                    mapContainer.classList.remove("hidden");
+                                }, 5000); // Show map after 5 seconds
                             }
                         }, 3000); // Show result after flashing number for 3 seconds
-
-                        // Show map after result
-                        setTimeout(() => {
-                            document.body.innerHTML = ''; // Clear previous content
-                            const randomLatitude = (Math.random() * 180 - 90).toFixed(6);
-                            const randomLongitude = (Math.random() * 360 - 180).toFixed(6);
-                            map.src = `https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=${randomLatitude},${randomLongitude}&zoom=10`; // Replace with your Google Maps API key
-                            mapContainer.classList.remove("hidden");
-                        }, 8000); // Show map after 8 seconds
                     } else {
                         resultText.textContent = "Enter a valid number (1-100)";
                     }
