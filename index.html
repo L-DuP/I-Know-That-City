@@ -99,69 +99,72 @@
         const submitButton = document.getElementById('submitButton');
         const resultImage = document.getElementById('resultImage');
 
-        const cities = [
-            {
-                description: "This vibrant city is famous for its stunning skyline and iconic bridge that stretches majestically across the bay. A bustling waterfront area is filled with seafood restaurants, and the nearby hills offer breathtaking views of the landscape. Visitors can explore colorful neighborhoods where the streets are alive with art, culture, and history. The climate is mild, making it perfect for outdoor activities and festivals year-round. The local culture is diverse, with influences from around the world, creating a unique atmosphere that captivates all who visit.",
-                name: "San Francisco",
-                image: "images/san_francisco.jpg" // Update with your image path
-            },
-            {
-                description: "Nestled between lush mountains and a sparkling coastline, this city is renowned for its beautiful beaches and vibrant nightlife. The streets are lined with palm trees, and the aroma of fresh seafood fills the air. Visitors flock to a famous pier with amusement rides and attractions. The local culture thrives with art galleries and music festivals celebrating a rich blend of traditions. The warm, sunny weather invites outdoor exploration, from surfing to hiking along scenic trails that reveal stunning ocean views.",
-                name: "Los Angeles",
-                image: "images/los_angeles.jpg" // Update with your image path
-            },
-            {
-                description: "Known for its historic architecture, this city boasts cobblestone streets and charming squares. A majestic cathedral stands at its heart, with intricate stained glass windows that tell stories of the past. Visitors can enjoy open-air markets filled with local produce and artisanal goods. The culinary scene is vibrant, featuring traditional dishes that reflect the region's heritage. The city hosts annual festivals celebrating music and art, drawing visitors from around the world. With a backdrop of rolling hills, it offers a delightful blend of history and culture.",
-                name: "Prague",
-                image: "images/prague.jpg" // Update with your image path
+const cities = [
+    {
+        description: "This vibrant city is famous for its stunning skyline and iconic bridge that stretches majestically across the bay. A bustling waterfront area is filled with seafood restaurants, and the nearby hills offer breathtaking views of the landscape. Visitors can explore colorful neighborhoods where the streets are alive with art, culture, and history. The climate is mild, making it perfect for outdoor activities and festivals year-round. The local culture is diverse, with influences from around the world, creating a unique atmosphere that captivates all who visit.",
+        name: "San Francisco",
+        image: "images/san_francisco.jpg" // Update with your image path
+    },
+    {
+        description: "Nestled between lush mountains and a sparkling coastline, this city is renowned for its beautiful beaches and vibrant nightlife. The streets are lined with palm trees, and the aroma of fresh seafood fills the air. Visitors flock to a famous pier with amusement rides and attractions. The local culture thrives with art galleries and music festivals celebrating a rich blend of traditions. The warm, sunny weather invites outdoor exploration, from surfing to hiking along scenic trails that reveal stunning ocean views.",
+        name: "Los Angeles",
+        image: "images/los_angeles.jpg" // Update with your image path
+    },
+    {
+        description: "Known for its historic architecture, this city boasts cobblestone streets and charming squares. A majestic cathedral stands at its heart, with intricate stained glass windows that tell stories of the past. Visitors can enjoy open-air markets filled with local produce and artisanal goods. The culinary scene is vibrant, featuring traditional dishes that reflect the region's heritage. The city hosts annual festivals celebrating music and art, drawing visitors from around the world. With a backdrop of rolling hills, it offers a delightful blend of history and culture.",
+        name: "Prague",
+        image: "images/prague.jpg" // Update with your image path
+    }
+];
+
+let attempts = 0;
+const maxAttempts = 3;
+let currentCity; // Variable to hold the current city
+
+// Fade in the title
+window.onload = () => {
+    title.style.opacity = 1;
+};
+
+globe.onclick = () => {
+    // Gradually enlarge and fade out the globe
+    globe.style.transform = 'scale(1.5)'; // Increase size
+    globe.style.opacity = 0; // Fade out
+
+    // Fade out the title
+    title.style.opacity = 0;
+
+    // Wait for the globe to fade before displaying the description
+    setTimeout(() => {
+        // Display a random city description
+        currentCity = cities[Math.floor(Math.random() * cities.length)]; // Store the current city
+        cityDescription.innerText = currentCity.description;
+        cityDescription.style.display = 'block';
+        inputContainer.style.display = 'flex'; // Show input container
+        cityInput.focus(); // Focus on the input field
+
+        // Handle submit button click
+        submitButton.onclick = () => {
+            const userGuess = cityInput.value.trim();
+            if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
+                // Correct guess
+                resultImage.src = currentCity.image;
+                resultImage.style.display = 'block';
+                cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
+                inputContainer.style.display = 'none'; // Hide input after winning
+            } else {
+                attempts++;
+                if (attempts < maxAttempts) {
+                    cityInput.value = ''; // Clear input for the next guess
+                    cityDescription.innerText = "Wrong! Try again.";
+                } else {
+                    cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
+                    inputContainer.style.display = 'none'; // Hide input after losing
+                }
             }
-        ];
-
-        let attempts = 0;
-        const maxAttempts = 3;
-
-        // Fade in the title
-        window.onload = () => {
-            title.style.opacity = 1;
         };
-
-        globe.onclick = () => {
-            // Gradually enlarge and fade out the globe
-            globe.style.transform = 'scale(1.5)'; // Increase size
-            globe.style.opacity = 0; // Fade out
-
-            // Fade out the title
-            title.style.opacity = 0;
-
-            // Wait for the globe to fade before displaying the description
-            setTimeout(() => {
-                // Display a random city description
-                const randomCity = cities[Math.floor(Math.random() * cities.length)];
-                cityDescription.innerText = randomCity.description;
-                cityDescription.style.display = 'block';
-                inputContainer.style.display = 'flex'; // Show input container
-
-                // Handle submit button click
-                submitButton.onclick = () => {
-                    const userGuess = cityInput.value.trim();
-                    if (userGuess.toLowerCase() === randomCity.name.toLowerCase()) {
-                        // Correct guess
-                        resultImage.src = randomCity.image;
-                        resultImage.style.display = 'block';
-                        cityDescription.innerText = "Correct! The city is " + randomCity.name + ".";
-                    } else {
-                        attempts++;
-                        if (attempts < maxAttempts) {
-                            cityInput.value = ''; // Clear input
-                            cityDescription.innerText = "Wrong! Try again.";
-                        } else {
-                            cityDescription.innerText = "Game over! The correct city was " + randomCity.name + ".";
-                            inputContainer.style.display = 'none'; // Hide input after losing
-                        }
-                    }
-                };
-            }, 3000); // Wait for 3 seconds before showing the description
-        };
+    }, 3000); // Wait for 3 seconds before showing the description
+};
     </script>
 </body>
 </html>
