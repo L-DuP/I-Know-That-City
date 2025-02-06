@@ -18,8 +18,8 @@
         }
 
         #globe {
-            width: 400px; /* Adjust size as needed */
-            transition: transform 0.2s ease;
+            width: 600px; /* Adjust size as needed */
+            transition: transform 3s ease, opacity 3s ease; /* Transition for enlarging and fading */
         }
 
         #title {
@@ -47,28 +47,12 @@
         };
 
         globe.onclick = () => {
-            // Start the drop animation
-            globe.style.transition = 'transform 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)'; // Easing for realistic drop
-            globe.style.transform = 'translateY(400px)'; // Drop distance
+            // Gradually enlarge and fade out the globe
+            globe.style.transform = 'scale(1.5)'; // Increase size
+            globe.style.opacity = 0; // Fade out
 
             // Fade out the title
             title.style.opacity = 0;
-
-            // Set a timeout for the bounce effect
-            setTimeout(() => {
-                // Bounce effect
-                let bounceCount = 10; // Number of bounces
-                const bounceHeight = 30; // Height of each bounce
-                const bounceInterval = setInterval(() => {
-                    globe.style.transform = globe.style.transform === 'translateY(0)' ? `translateY(-${bounceHeight}px)` : 'translateY(0)';
-                    bounceCount--;
-
-                    if (bounceCount <= 0) {
-                        clearInterval(bounceInterval);
-                        globe.style.transform = 'translateY(0)'; // Ensure it ends at original position
-                    }
-                }, 200); // Bounce interval
-            }, 500); // Delay before bouncing
         };
     </script>
 </body>
