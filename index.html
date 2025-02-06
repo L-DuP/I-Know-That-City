@@ -18,7 +18,7 @@
         }
 
         #globe {
-            width: 600px; /* Adjust size as needed */
+            width: 400px; /* Adjust size as needed */
             transition: transform 3s ease, opacity 3s ease; /* Transition for enlarging and fading */
         }
 
@@ -31,15 +31,79 @@
             transition: opacity 1s ease;
             margin-bottom: 20px; /* Space between title and globe */
         }
+
+        #cityDescription {
+            font-size: 24px; /* Adjust size as needed */
+            margin: 20px 0; /* Space around description */
+            text-align: center;
+            display: none; /* Hidden initially */
+        }
+
+        #inputContainer {
+            display: none; /* Hidden initially */
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center align */
+        }
+
+        #cityInput {
+            padding: 10px; /* Add some padding */
+            font-size: 18px; /* Font size for input */
+            margin-bottom: 10px; /* Space below input */
+        }
+
+        #submitButton {
+            padding: 10px 20px; /* Padding for the button */
+            font-size: 18px; /* Font size for button */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        #resultImage {
+            display: none; /* Hidden initially */
+            margin-top: 20px; /* Space above the image */
+            width: 300px; /* Adjust size as needed */
+        }
     </style>
 </head>
 <body>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
 
+    <div id="cityDescription"></div>
+    <div id="inputContainer">
+        <input type="text" id="cityInput" placeholder="Guess the city..." />
+        <button id="submitButton">Submit</button>
+    </div>
+    <img id="resultImage" src="" alt="City Image" />
+
     <script>
         const globe = document.getElementById('globe');
         const title = document.getElementById('title');
+        const cityDescription = document.getElementById('cityDescription');
+        const inputContainer = document.getElementById('inputContainer');
+        const cityInput = document.getElementById('cityInput');
+        const submitButton = document.getElementById('submitButton');
+        const resultImage = document.getElementById('resultImage');
+
+        const cities = [
+            {
+                description: "This vibrant city is famous for its stunning skyline and iconic bridge that stretches majestically across the bay. A bustling waterfront area is filled with seafood restaurants, and the nearby hills offer breathtaking views of the landscape. Visitors can explore colorful neighborhoods where the streets are alive with art, culture, and history. The climate is mild, making it perfect for outdoor activities and festivals year-round. The local culture is diverse, with influences from around the world, creating a unique atmosphere that captivates all who visit.",
+                name: "San Francisco",
+                image: "images/san_francisco.jpg" // Update with your image path
+            },
+            {
+                description: "Nestled between lush mountains and a sparkling coastline, this city is renowned for its beautiful beaches and vibrant nightlife. The streets are lined with palm trees, and the aroma of fresh seafood fills the air. Visitors flock to a famous pier with amusement rides and attractions. The local culture thrives with art galleries and music festivals celebrating a rich blend of traditions. The warm, sunny weather invites outdoor exploration, from surfing to hiking along scenic trails that reveal stunning ocean views.",
+                name: "Los Angeles",
+                image: "images/los_angeles.jpg" // Update with your image path
+            },
+            {
+                description: "Known for its historic architecture, this city boasts cobblestone streets and charming squares. A majestic cathedral stands at its heart, with intricate stained glass windows that tell stories of the past. Visitors can enjoy open-air markets filled with local produce and artisanal goods. The culinary scene is vibrant, featuring traditional dishes that reflect the region's heritage. The city hosts annual festivals celebrating music and art, drawing visitors from around the world. With a backdrop of rolling hills, it offers a delightful blend of history and culture.",
+                name: "Prague",
+                image: "images/prague.jpg" // Update with your image path
+            }
+        ];
+
+        let attempts = 0;
+        const maxAttempts = 3;
 
         // Fade in the title
         window.onload = () => {
@@ -53,6 +117,32 @@
 
             // Fade out the title
             title.style.opacity = 0;
+
+            // Display a random city description
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            cityDescription.innerText = randomCity.description;
+            cityDescription.style.display = 'block';
+            inputContainer.style.display = 'flex'; // Show input container
+
+            // Handle submit button click
+            submitButton.onclick = () => {
+                const userGuess = cityInput.value.trim();
+                if (userGuess.toLowerCase() === randomCity.name.toLowerCase()) {
+                    // Correct guess
+                    resultImage.src = randomCity.image;
+                    resultImage.style.display = 'block';
+                    cityDescription.innerText = "Correct! The city is " + randomCity.name + ".";
+                } else {
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        cityInput.value = ''; // Clear input
+                        cityDescription.innerText = "Wrong! Try again.";
+                    } else {
+                        cityDescription.innerText = "Game over! The correct city was " + randomCity.name + ".";
+                        inputContainer.style.display = 'none'; // Hide input after losing
+                    }
+                }
+            };
         };
     </script>
 </body>
