@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Circles</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 1s ease-in-out;
+        }
+
+        .red {
+            background-color: red;
+            left: 30%;
+        }
+
+        .blue {
+            background-color: blue;
+            left: 60%;
+        }
+
+        .enlarged {
+            transform: scale(2);
+            transition: transform 1s ease-in-out;
+        }
+
+        .text {
+            position: absolute;
+            font-size: 24px;
+            color: white;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="circle red" id="red"></div>
+    <div class="circle blue" id="blue"></div>
+    <div class="text" id="message">You did the right thing</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const red = document.getElementById("red");
+            const blue = document.getElementById("blue");
+            const message = document.getElementById("message");
+
+            function fallAnimation(circle) {
+                let velocity = 0;
+                let position = 0;
+                let gravity = 0.5;
+                let bounceFactor = 0.7;
+                let isFalling = true;
+                
+                function animate() {
+                    velocity += gravity;
+                    position += velocity;
+                    
+                    if (position + 100 >= window.innerHeight) {
+                        position = window.innerHeight - 100;
+                        velocity *= -bounceFactor;
+                    }
+                    
+                    circle.style.top = position + "px";
+
+                    if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        isFalling = false;
+                    }
+                }
+                animate();
+            }
+
+            function enlargeAndShowText(circle) {
+                circle.classList.add("enlarged");
+                message.style.top = (window.innerHeight / 2) + "px";
+                message.style.left = (window.innerWidth / 2 - 100) + "px";
+                setTimeout(() => {
+                    message.style.opacity = "1";
+                }, 500);
+            }
+
+            red.addEventListener("click", () => {
+                fallAnimation(red);
+                enlargeAndShowText(blue);
+            });
+
+            blue.addEventListener("click", () => {
+                fallAnimation(blue);
+                enlargeAndShowText(red);
+            });
+        });
+    </script>
+
+</body>
+</html>
