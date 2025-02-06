@@ -7,12 +7,15 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #222;
             overflow: hidden;
             position: relative;
+            color: white;
+            font-family: Arial, sans-serif;
         }
 
         .circle {
@@ -42,9 +45,44 @@
         .text {
             position: absolute;
             font-size: 24px;
-            color: white;
             opacity: 0;
             transition: opacity 2s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .input-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 50px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -54,11 +92,25 @@
     <div class="circle blue" id="blue"></div>
     <div class="text" id="message">You did the right thing</div>
 
+    <div class="input-container hidden" id="game">
+        <p>Enter a number between 1-100</p>
+        <input type="number" id="userNumber" min="1" max="100">
+        <button class="button" id="testLuck">Test your luck</button>
+        <p class="result" id="result"></p>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const red = document.getElementById("red");
             const blue = document.getElementById("blue");
             const message = document.getElementById("message");
+            const game = document.getElementById("game");
+            const userNumberInput = document.getElementById("userNumber");
+            const testLuckButton = document.getElementById("testLuck");
+            const resultText = document.getElementById("result");
+
+            let hasClicked = false;
+            let gamePlayed = false;
 
             function fallAnimation(circle) {
                 let velocity = 0;
@@ -66,16 +118,16 @@
                 let gravity = 0.5;
                 let bounceFactor = 0.7;
                 let isFalling = true;
-                
+
                 function animate() {
                     velocity += gravity;
                     position += velocity;
-                    
+
                     if (position + 100 >= window.innerHeight) {
                         position = window.innerHeight - 100;
                         velocity *= -bounceFactor;
                     }
-                    
+
                     circle.style.top = position + "px";
 
                     if (Math.abs(velocity) > 0.5 || position < window.innerHeight - 100) {
@@ -94,16 +146,55 @@
                 setTimeout(() => {
                     message.style.opacity = "1";
                 }, 500);
+
+                setTimeout(() => {
+                    message.style.opacity = "0";
+                    setTimeout(() => {
+                        game.classList.remove("hidden");
+                    }, 2000);
+                }, 5000);
+            }
+
+            function disableClicks() {
+                red.style.pointerEvents = "none";
+                blue.style.pointerEvents = "none";
             }
 
             red.addEventListener("click", () => {
-                fallAnimation(red);
-                enlargeAndShowText(blue);
+                if (!hasClicked) {
+                    hasClicked = true;
+                    fallAnimation(red);
+                    enlargeAndShowText(blue);
+                    disableClicks();
+                }
             });
 
             blue.addEventListener("click", () => {
-                fallAnimation(blue);
-                enlargeAndShowText(red);
+                if (!hasClicked) {
+                    hasClicked = true;
+                    fallAnimation(blue);
+                    enlargeAndShowText(red);
+                    disableClicks();
+                }
+            });
+
+            testLuckButton.addEventListener("click", () => {
+                if (!gamePlayed) {
+                    const userNumber = parseInt(userNumberInput.value, 10);
+                    if (userNumber >= 1 && userNumber <= 100) {
+                        gamePlayed = true;
+                        testLuckButton.disabled = true;
+
+                        const randomNumber = Math.floor(Math.random() * 100) + 1;
+                        if (userNumber === randomNumber) {
+                            resultText.textContent = "YOU MATCHED!";
+                        } else {
+                            resultText.textContent = "Your fate neglects you";
+                        }
+                    } else {
+                        resultText.textContent = "Enter a valid number (1-100)";
+                    }
+                }
             });
         });
     </script>
