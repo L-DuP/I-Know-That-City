@@ -19,12 +19,8 @@
             text-align: center;
         }
 
-        body {
-            height: 100vh; /* Ensures full viewport height */
-        }
-
         #globe {
-            width: 400px; /* Default size */
+            width: 400px;
             transition: transform 3s ease, opacity 3s ease;
         }
 
@@ -36,6 +32,16 @@
             opacity: 0;
             transition: opacity 1s ease;
             margin-bottom: 20px;
+        }
+
+        /* Centering the text box and input box together */
+        #textContainer {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            width: 100%;
+            max-width: 600px;
         }
 
         #cityDescription {
@@ -50,16 +56,14 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Space between text and input box */
         }
 
         #inputContainer {
-            display: none; /* Hidden initially */
+            display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Center vertically */
-            position: absolute; /* Absolute positioning for better centering */
-            top: 50%;
-            transform: translateY(-50%); /* Move up by half its height */
+            width: 100%;
         }
 
         #cityInput {
@@ -77,9 +81,8 @@
         #resultImage {
             display: none;
             width: 600px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            max-width: 100%;
+            margin-top: 20px; /* Space above the image */
         }
 
         /* -------- MOBILE RESPONSIVENESS -------- */
@@ -99,15 +102,13 @@
                 font-size: 48px;
             }
 
-            #inputContainer {
-                top: 50%;
-                transform: translateY(-50%);
+            #textContainer {
+                width: 90%;
+                max-width: 350px;
             }
 
             #resultImage {
                 width: 300px;
-                top: 50%;
-                transform: translateY(-50%);
             }
         }
 </style>
