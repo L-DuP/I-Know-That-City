@@ -1,3 +1,5 @@
+index backup
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +10,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
         body {
-            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    display: grid;
-    place-items: center; /* Centers both horizontally and vertically */
-    text-align: center;
-        }
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    text-align: center; /* Ensures text is centered */
+}
+.container {
+    max-width: 90%; /* Prevents text from overflowing on smaller screens */
+}
 
         #globe {
             width: 400px; /* Adjust size as needed */
