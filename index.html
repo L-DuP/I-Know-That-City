@@ -124,13 +124,31 @@
             #resultImage {
                 width: 300px;
             }
+            #hintButton {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 6px; /* Space between submit and hint button */
+}
+
+#hintText {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    display: none; /* Initially hidden */
+    margin-bottom: 10px; /* Space between hint and text box */
+}
         }
 </style>
 </head>
 <body>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
-
+    <button id="hintButton">Hint</button>
+    <div id="hintText"></div>
     <div id="cityDescription"></div>
     <div id="inputContainer">
         <input type="text" id="cityInput" placeholder="Guess the city..." />
@@ -139,6 +157,13 @@
     <img id="resultImage" src="" alt="City Image" />
 
     <script>
+        const hintButton = document.getElementById('hintButton');
+const hintText = document.getElementById('hintText');
+
+hintButton.onclick = () => {
+    hintText.innerText = "Country of the city: " + currentCity.country;
+    hintText.style.display = "block";
+};
         const globe = document.getElementById('globe');
         const title = document.getElementById('title');
         const cityDescription = document.getElementById('cityDescription');
@@ -151,126 +176,151 @@
             {
                 description: "This vibrant city is famous for its stunning skyline and iconic bridge that stretches majestically across the bay. A bustling waterfront area is filled with seafood restaurants, and the nearby hills offer breathtaking views of the landscape. Visitors can explore colorful neighborhoods where the streets are alive with art, culture, and history. The climate is mild, making it perfect for outdoor activities and festivals year-round. The local culture is diverse, with influences from around the world, creating a unique atmosphere that captivates all who visit.",
                 name: "San Francisco",
+                country: "United States",
                 image: "images/san_francisco.jpg" // Update with your image path
             },
             {
                 description: "Nestled between lush mountains and a sparkling coastline, this city is renowned for its beautiful beaches and vibrant nightlife. The streets are lined with palm trees, and the aroma of fresh seafood fills the air. Visitors flock to a famous pier with amusement rides and attractions. The local culture thrives with art galleries and music festivals celebrating a rich blend of traditions. The warm, sunny weather invites outdoor exploration, from surfing to hiking along scenic trails that reveal stunning ocean views.",
                 name: "Los Angeles",
+                country: "United States",
                 image: "images/los_angeles.jpg" // Update with your image path
             },
             {
                 description: "Known for its historic architecture, this city boasts cobblestone streets and charming squares. A majestic cathedral stands at its heart, with intricate stained glass windows that tell stories of the past. Visitors can enjoy open-air markets filled with local produce and artisanal goods. The culinary scene is vibrant, featuring traditional dishes that reflect the region's heritage. The city hosts annual festivals celebrating music and art, drawing visitors from around the world. With a backdrop of rolling hills, it offers a delightful blend of history and culture.",
                 name: "Prague",
+                country: "Czech Republic",
                 image: "images/prague.jpg" // Update with your image path
             },
             {
                 description: "This bustling metropolis is famous for its cultural diversity and vibrant neighborhoods. A grand avenue lined with cafes and shops leads to an iconic opera house known for its stunning performances. The local cuisine is a delicious mix of flavors, with street vendors serving everything from savory pastries to gourmet dishes. Parks and gardens provide serene retreats amidst the urban landscape, while art galleries showcase the talents of local artists. The city’s festive spirit shines through its numerous events celebrating traditions from around the globe.",
                 name: "Vienna",
+                country: "Austria",
                 image: "images/vienna.jpg" // Update with your image path
             },
         {
                 description: "Renowned for its beautiful canals and historic architecture, this city offers a unique charm that captivates visitors. Bicycles are the primary mode of transport, making it easy to explore narrow streets lined with colorful buildings and quaint shops. The local cuisine features fresh seafood and unique Dutch treats, often enjoyed at outdoor cafes along the waterways. The city is also known for its vibrant art scene, with museums dedicated to famous artists and innovative exhibitions. Each season brings a different atmosphere, from the colorful tulip fields in spring to cozy markets in winter.",                    
                 name: "Amsterdam",
+                country: "Netherlands",
                 image: "images/amsterdam.jpg" // Update with your image path
             },
         {
                 description: "This coastal gem is famous for its stunning cliffs and picturesque beaches. The warm sun shines brightly on golden sands, inviting visitors to relax and soak up the atmosphere. A lively boardwalk is filled with shops and eateries, serving fresh seafood and local delicacies. The surrounding hills offer hiking trails with breathtaking ocean views, perfect for adventure seekers. Local festivals celebrate the city’s maritime heritage, bringing together communities in joyous celebration. With a laid-back vibe and stunning scenery, this city is a true seaside paradise.",
                 name: "Cape Town",
+                country: "South Africa",
                 image: "images/cape_town.jpg" // Update with your image path
             },
         {
                 description: "A city rich in history and culture, this destination is known for its ancient ruins and grand museums. A majestic amphitheater stands proudly at the center, surrounded by lively squares filled with cafes and shops. The narrow streets come alive with the sounds of bustling markets, where locals sell fresh produce and handmade goods. Festivals celebrating local traditions light up the calendar, making this city a cultural gem that enchants every visitor. A breathtaking view of the surrounding hills can be seen from the city's many lookout points.",
                 name: "Rome",
+                country: "Italy",
                 image: "images/rome.jpg" // Update with your image path
             },
         {
                 description: "This dynamic city is renowned for its artistic heritage and vibrant cultural scene. Its streets are filled with galleries and studios showcasing the talents of local artists, while iconic landmarks stand testament to its rich history. The aroma of coffee and fresh pastries wafts through the air, inviting visitors to enjoy leisurely meals at charming cafes. A sprawling park offers a green oasis for relaxation and outdoor activities. With an exciting nightlife and countless events throughout the year, this city pulses with energy and creativity.",
                 name: "Barcelona",
+                country: "Spain",
                 image: "images/barcelona.jpg" // Update with your image path
             },
         {
                 description: "Known for its stunning fjords and picturesque landscapes, this city is a blend of modernity and tradition. Visitors can explore a vibrant waterfront area filled with restaurants serving fresh seafood and local delicacies. The nearby mountains offer outdoor adventures, from hiking to skiing, showcasing the region's natural beauty. The city is home to numerous museums that highlight its cultural heritage, and local festivals celebrate its maritime history. Each season brings a unique charm, with colorful flowers blooming in spring and cozy markets during winter.",
                 name: "Bergen",
+                country: "Norway",
                 image: "images/bergen.jpg" // Update with your image path
             },
         {
                 description: "This charming city is characterized by its historic architecture and enchanting canals. Visitors can wander through narrow streets lined with boutique shops and cozy cafes, where the aroma of freshly brewed coffee fills the air. A renowned art museum showcases local and international works, while the city's vibrant music scene adds to its allure. The surrounding countryside features picturesque landscapes, perfect for outdoor activities. With a rich history and a lively cultural scene, this city offers a delightful experience for all who visit.",
                 name: "Ghent",
+                country: "Switzerland",
                 image: "images/ghent.jpg" // Update with your image path
             },
         {
                 description: "Famous for its stunning cliffs and breathtaking ocean views, this city offers a unique blend of nature and culture. Visitors can hike along coastal trails that provide panoramic vistas, while the city itself boasts vibrant art galleries and lively festivals. Local seafood restaurants serve fresh catches, while cozy cafes invite relaxation after a day of exploration. The warm climate and vibrant nightlife make it a popular destination for travelers seeking sun and fun.",
                 name: "Nice",
+                country: "France",
                 image: "images/nice.jpg" // Update with your image path
             },
         {
                 description: "This city is known for its rich history and vibrant cultural scene. A beautiful river flows through its heart, surrounded by picturesque bridges and historic buildings. The local market buzzes with life, showcasing fresh produce, flowers, and artisanal crafts. Visitors can explore museums dedicated to art and history, offering insights into the city's past. A bustling café culture invites relaxation, with outdoor seating perfect for people-watching. Throughout the year, the city hosts festivals celebrating its diverse heritage and community spirit.",
                 name: "Lyon",
+                country: "France",
                 image: "images/lyon.jpg" // Update with your image path
             },
         {
                 description: "A city steeped in history, this destination is home to ancient temples and bustling markets filled with vibrant textiles and spices. A picturesque river flows through the city, offering scenic boat rides and beautiful views of the skyline. The streets are alive with the sounds of street performers, creating a vibrant atmosphere. With a rich culinary tradition, visitors can indulge in local delicacies at charming eateries. This city is a true cultural gem, inviting exploration and discovery at every turn.",
                 name: "Bangkok",
+                country: "Thailand",
                 image: "images/bangkok.jpg" // Update with your image path
             },
         {
                 description: "Known for its stunning beaches and crystal-clear waters, this city is a tropical paradise. Visitors can relax on pristine sandy shores or partake in water sports like snorkeling and surfing. A lively boardwalk offers entertainment options and restaurants serving fresh seafood. The warm climate and vibrant nightlife make it a popular destination for travelers seeking sun and fun. The city's lively atmosphere is complemented by friendly locals and rich cultural experiences.",
                 name: "Honolulu",
+                country: "United States",
                 image: "images/honululu.jpg" // Update with your image path
             },
         {
                 description: "This city is a hub of innovation and technology, characterized by its iconic skyline and dynamic atmosphere. It is home to numerous museums dedicated to art and science, showcasing the city's commitment to creativity. A famous park in the center provides a peaceful escape, where visitors can relax amidst lush greenery. The culinary scene is diverse, with flavors from around the world enticing food lovers. A rich cultural tapestry and thriving arts community make this city a vibrant place to explore.",
                 name: "Tokyo",
+                country: "Japan",    
                 image: "images/tokyo.jpg" // Update with your image path
             },
         {
                 description: "Famous for its breathtaking parks and stunning gardens, this city offers a tranquil escape from the urban hustle. Visitors can stroll through beautifully landscaped areas filled with flowers and sculptures, providing a peaceful retreat. A historic district features charming architecture and quaint shops, inviting exploration. The city's culinary scene is equally impressive, with farm-to-table restaurants highlighting local ingredients. Each season brings a different beauty, from cherry blossoms in spring to vibrant foliage in autumn.",
                 name: "Washington, D.C.",
+                country: "United States",
                 image: "images/washington_d_c.jpg" // Update with your image path
             },
         {
                 description: "Renowned for its stunning coastal views and rich maritime history, this city boasts a unique blend of modern architecture and historic buildings. A vibrant waterfront area is alive with restaurants serving fresh seafood, while nearby mountains offer hiking trails with panoramic views. The city hosts a festival each year celebrating its maritime heritage, attracting visitors from around the globe. With a welcoming atmosphere and rich cultural offerings, it captivates the hearts of all who visit.",
                 name: "Halifax",
+                country: "Canada",
                 image: "images/halifax.jpg" // Update with your image path
             },
         {
                 description: "This city is a melting pot of cultures, offering a diverse array of cuisines and traditions. The streets are alive with festivals celebrating various cultures, where locals and visitors come together to enjoy food, music, and dance. A renowned market showcases fresh produce and artisanal goods, while the vibrant neighborhoods invite exploration of their unique character. The city's historic sites and modern attractions create a rich tapestry of experiences for everyone.",
                 name: "Toronto",
+                country: "Canada",
                 image: "images/toronto.jpg" // Update with your image path
             },
         {
                 description: "This city is famous for its culinary delights, with a diverse food scene that attracts food lovers from around the world. The streets are filled with food stalls serving everything from street tacos to gourmet dishes. A vibrant market showcases local produce and artisanal goods, while renowned chefs create innovative cuisine in upscale restaurants. The city's nightlife is equally exciting, with lively bars and music venues providing entertainment for all tastes.",
                 name: "Mexico City",
+                country: "Mexico",
                 image: "images/mexico_city.jpg" // Update with your image path
             },
         {
                 description: "Known for its majestic mountains and outdoor adventures, this city is a paradise for nature lovers. Visitors can explore hiking trails that lead to stunning vistas and serene lakes. The charming downtown area features local shops and restaurants, providing a taste of the region's culture. A winter wonderland attracts skiers and snowboarders, while summer brings opportunities for hiking and biking. With a rich cultural scene and a welcoming community, this city offers something for everyone.",
                 name: "Denver",
+                country: "United States",
                 image: "images/denver.jpg" // Update with your image path
             },
         {
                 description: "This vibrant city is renowned for its stunning beaches and exciting nightlife. Visitors can enjoy a lively boardwalk filled with shops, restaurants, and entertainment options. The warm sun shines on golden sands, inviting relaxation and fun. The local cuisine reflects a rich cultural heritage, with flavors influenced by various traditions. Festivals celebrating music and art light up the calendar, creating a vibrant atmosphere. The city offers endless opportunities for exploration and adventure.",
                 name: "Miami",
+                country: "United States",
                 image: "images/miami.jpg" // Update with your image path
             },
         {
                 description: "This city is known for its stunning cliffs and breathtaking ocean views. A historic lighthouse stands proudly on the cliffs, guiding ships safely to shore. The waterfront is lined with seafood restaurants offering the catch of the day, while charming shops sell local crafts. Visitors can explore picturesque beaches and coastal trails, enjoying the fresh sea breeze. With a rich history and vibrant community, this city captivates visitors with its natural beauty and charm.",
                 name: "Newport",
+                country: "United States",
                 image: "images/newport.jpg" // Update with your image path
             },
         {
                 description: "Famous for its rich history and vibrant cultural scene, this city boasts grand architecture and beautiful parks. A historic district showcases the city's heritage, with cobblestone streets and charming cafes. The local culinary scene features farm-to-table dining and diverse flavors from around the world. Festivals celebrating art and music fill the calendar, inviting both locals and visitors to partake in the festivities. With its welcoming atmosphere and rich experiences, this city is a delightful destination.",
                 name: "Philadelphia",
+                country: "United States",
                 image: "images/philadelphia.jpg" // Update with your image path
             },
         {
                 description: "Known for its stunning landscapes and outdoor adventures, this city is a hub for nature lovers. Visitors can explore nearby mountains and valleys, perfect for hiking and skiing. The charming downtown area features local boutiques and cozy cafes, inviting relaxation after a day of exploration. Festivals celebrating local traditions add to the vibrant atmosphere, showcasing the community's spirit. With breathtaking views and a rich cultural scene, this city is a paradise for those who seek adventure.",
                 name: "Salt Lake City",
+                country: "United States",
                 image: "images/salt_lake_city.jpg" // Update with your image path
             },
         {
                 description: "This vibrant metropolis is known for its rich history, diverse culture, and a unique blend of old and new. The city's iconic landmarks, such as a monumental gate and remnants of a historic wall, tell stories of resilience and transformation. Art thrives in its many galleries, while lively neighborhoods pulse with energy and creativity. Renowned for its eclectic culinary scene, it offers a taste of global flavors. Parks and green spaces provide a refreshing escape, inviting both locals and visitors to relax. With a vibrant nightlife and numerous festivals, it captivates those seeking a dynamic urban experience.",
                 name: "Berlin",
+                country: "Germany",
                 image: "images/berlin.jpg" // Update with your image path
             }
         
