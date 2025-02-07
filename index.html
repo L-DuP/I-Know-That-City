@@ -25,86 +25,92 @@
 
         #globe {
             width: 400px; /* Default size */
-            transition: transform 3s ease, opacity 3s ease; /* Transition for enlarging and fading */
+            transition: transform 3s ease, opacity 3s ease;
         }
 
         #title {
             font-family: 'Rubik Vinyl', cursive;
-            font-size: 64px; /* Default size */
+            font-size: 64px;
             font-weight: bold;
-            color: black; /* Font color set to black */
+            color: black;
             opacity: 0;
             transition: opacity 1s ease;
-            margin-bottom: 20px; /* Space between title and globe */
+            margin-bottom: 20px;
         }
 
         #cityDescription {
             font-family: 'Sour Gummy', cursive;
-            font-size: 24px; /* Default font size */
-            margin: 10px 0; /* Space around description */
+            font-size: 24px;
             text-align: center;
-            display: none; /* Hidden initially */
-            width: 80%; /* Default width */
-            max-width: 600px; /* Maximum width */
-            background-color: white; /* Background color for the box */
-            border: 2px solid #ccc; /* Border around the box */
-            border-radius: 10px; /* Rounded corners */
-            padding: 20px; /* Padding inside the box */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            display: none;
+            width: 80%;
+            max-width: 600px;
+            background-color: white;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #inputContainer {
             display: none; /* Hidden initially */
-            flex-direction: column; /* Stack elements vertically */
-            align-items: center; /* Center align */
-            margin-top: 20px; /* Adjust vertical spacing */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center vertically */
+            position: absolute; /* Absolute positioning for better centering */
+            top: 50%;
+            transform: translateY(-50%); /* Move up by half its height */
         }
 
         #cityInput {
-            padding: 10px; /* Add some padding */
-            font-size: 18px; /* Font size for input */
-            margin-bottom: 10px; /* Space below input */
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
 
         #submitButton {
-            padding: 10px 20px; /* Padding for the button */
-            font-size: 18px; /* Font size for button */
-            cursor: pointer; /* Pointer cursor on hover */
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
         }
 
         #resultImage {
-            display: none; /* Hidden initially */
-            margin-top: 20px; /* Adjusted space above the image */
-            width: 450px; /* Adjust size as needed */
+            display: none;
+            width: 600px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
             #cityDescription {
-                font-size: 18px; /* Reduce font size */
-                width: 90%; /* Make the box slightly narrower */
-                padding: 15px; /* Reduce padding */
-                max-width: 300px; /* Cap the width at 300px */
+                font-size: 18px;
+                width: 90%;
+                padding: 15px;
+                max-width: 300px;
             }
 
             #globe {
-                width: 250px; /* Smaller globe for mobile */
+                width: 250px;
             }
 
             #title {
-                font-size: 48px; /* Slightly smaller title */
+                font-size: 48px;
             }
 
             #inputContainer {
-                margin-top: 10px; /* Adjust spacing */
+                top: 50%;
+                transform: translateY(-50%);
             }
 
             #resultImage {
-                width: 300px; /* Reduce image size */
+                width: 300px;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 </style>
-
 </head>
 <body>
     <div id="title">I Know That City!</div>
