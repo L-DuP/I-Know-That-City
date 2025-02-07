@@ -8,110 +8,112 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
         html, body {
-            height: 100%;
-            margin: 0;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-            text-align: center;
-        }
+    height: 100%;
+    margin: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: center;
+}
 
-        #globe {
-            width: 400px;
-            transition: transform 3s ease, opacity 3s ease;
-        }
+/* Grouping text + input + button as one entity */
+#textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    width: 100%;
+    max-width: 500px; /* Reduce max width for a more compact appearance */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Ensures perfect centering */
+}
 
-        #title {
-            font-family: 'Rubik Vinyl', cursive;
-            font-size: 64px;
-            font-weight: bold;
-            color: black;
-            opacity: 0;
-            transition: opacity 1s ease;
-            margin-bottom: 20px;
-        }
+/* Adjust text box size */
+#cityDescription {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 20px; /* Reduce font size */
+    text-align: center;
+    display: none;
+    width: 75%; /* Reduce width */
+    max-width: 450px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px; /* Reduce padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px; /* Less space below text */
+}
 
-        /* Centering the text box and input box together */
-        #textContainer {
-            display: flex;
-            flex-direction: column; /* Stack elements vertically */
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            width: 100%;
-            max-width: 600px;
-            margin-top: -50px;
-        }
+/* Adjust input box and button size */
+#inputContainer {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 
-        #cityDescription {
-            font-family: 'Sour Gummy', cursive;
-            font-size: 24px;
-            text-align: center;
-            display: none;
-            width: 80%;
-            max-width: 600px;
-            background-color: white;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Space between text and input box */
-        }
+#cityInput {
+    padding: 8px; /* Reduce padding */
+    font-size: 16px; /* Reduce font size */
+    width: 80%; /* Adjust width */
+    max-width: 300px; /* Reduce max width */
+    margin-bottom: 8px; /* Reduce spacing below input */
+}
 
-        #inputContainer {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+#submitButton {
+    padding: 8px 16px; /* Reduce button size */
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        #cityInput {
-            padding: 10px;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
+/* Reduce result image size */
+#resultImage {
+    display: none;
+    width: 500px; /* Reduce size */
+    max-width: 90%;
+    margin-top: 15px; /* Less space above image */
+}
 
-        #submitButton {
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-        }
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    #cityDescription {
+        font-size: 16px;
+        width: 85%;
+        padding: 12px;
+        max-width: 300px;
+    }
 
-        #resultImage {
-            display: none;
-            width: 600px;
-            max-width: 100%;
-            margin-top: 20px; /* Space above the image */
-        }
+    #globe {
+        width: 220px;
+    }
 
-        /* -------- MOBILE RESPONSIVENESS -------- */
-        @media (max-width: 600px) {
-            #cityDescription {
-                font-size: 18px;
-                width: 90%;
-                padding: 15px;
-                max-width: 300px;
-            }
+    #title {
+        font-size: 42px;
+    }
 
-            #globe {
-                width: 250px;
-            }
+    #textContainer {
+        width: 90%;
+        max-width: 320px;
+    }
 
-            #title {
-                font-size: 48px;
-            }
+    #cityInput {
+        font-size: 14px;
+        max-width: 250px;
+    }
 
-            #textContainer {
-                width: 90%;
-                max-width: 350px;
-            }
+    #submitButton {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
 
-            #resultImage {
-                width: 300px;
-            }
-        }
+    #resultImage {
+        width: 300px;
+    }
+}
 </style>
 </head>
 <body>
