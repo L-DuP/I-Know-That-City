@@ -24,13 +24,13 @@
         }
 
         #globe {
-            width: 400px; /* Adjust size as needed */
+            width: 400px; /* Default size */
             transition: transform 3s ease, opacity 3s ease; /* Transition for enlarging and fading */
         }
 
         #title {
             font-family: 'Rubik Vinyl', cursive;
-            font-size: 64px; /* Adjust size as needed */
+            font-size: 64px; /* Default size */
             font-weight: bold;
             color: black; /* Font color set to black */
             opacity: 0;
@@ -40,11 +40,11 @@
 
         #cityDescription {
             font-family: 'Sour Gummy', cursive;
-            font-size: 24px; /* Adjust size as needed */
+            font-size: 24px; /* Default font size */
             margin: 10px 0; /* Space around description */
             text-align: center;
             display: none; /* Hidden initially */
-            width: 80%; /* Set a width to create a box effect */
+            width: 80%; /* Default width */
             max-width: 600px; /* Maximum width */
             background-color: white; /* Background color for the box */
             border: 2px solid #ccc; /* Border around the box */
@@ -77,7 +77,34 @@
             margin-top: 20px; /* Adjusted space above the image */
             width: 600px; /* Adjust size as needed */
         }
+
+        /* -------- MOBILE RESPONSIVENESS -------- */
+        @media (max-width: 600px) {
+            #cityDescription {
+                font-size: 18px; /* Reduce font size */
+                width: 90%; /* Make the box slightly narrower */
+                padding: 15px; /* Reduce padding */
+                max-width: 300px; /* Cap the width at 300px */
+            }
+
+            #globe {
+                width: 250px; /* Smaller globe for mobile */
+            }
+
+            #title {
+                font-size: 48px; /* Slightly smaller title */
+            }
+
+            #inputContainer {
+                margin-top: 10px; /* Adjust spacing */
+            }
+
+            #resultImage {
+                width: 300px; /* Reduce image size */
+            }
+        }
 </style>
+
 </head>
 <body>
     <div id="title">I Know That City!</div>
