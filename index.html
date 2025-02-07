@@ -34,22 +34,22 @@
             margin-bottom: 20px;
         }
 
-        /* Wraps both city text and input area as a single centered entity */
+        /* Wraps text, input, and button as a single centered block */
         #textContainer {
-            display: flex;
-            flex-direction: column; /* Stack elements vertically */
-            justify-content: center; /* Center the whole unit */
-            align-items: center; /* Center horizontally */
+            display: none; /* Hidden initially */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             width: 100%;
             max-width: 600px;
-            height: 50vh; /* Ensures the whole block is centered properly */
+            height: 50vh; /* Centers vertically */
         }
 
         #cityDescription {
             font-family: 'Sour Gummy', cursive;
             font-size: 24px;
             text-align: center;
-            display: none;
+            display: block;
             width: 80%;
             max-width: 600px;
             background-color: white;
@@ -61,12 +61,11 @@
         }
 
         #inputContainer {
-            display: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            gap: 10px; /* Adds consistent spacing between input and button */
+            gap: 10px; /* Consistent spacing between input and button */
         }
 
         #cityInput {
