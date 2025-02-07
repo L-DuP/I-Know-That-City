@@ -90,6 +90,24 @@
             margin-top: 20px; /* Space above the image */
         }
 
+        #hintButton {
+    display: none; /* Initially hidden */
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+#hintText {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    display: none;
+    margin-bottom: 10px;
+
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
     #cityDescription {
@@ -124,13 +142,15 @@
             #resultImage {
                 width: 300px;
             }
+            
             #hintButton {
+    display: none; /* Initially hidden */
     background: none;
     border: none;
     color: red;
     font-size: 14px;
     cursor: pointer;
-    margin-top: 6px; /* Space between submit and hint button */
+    margin-top: 6px;
 }
 
 #hintText {
@@ -138,9 +158,8 @@
     font-size: 16px;
     text-align: center;
     color: black;
-    display: none; /* Initially hidden */
-    margin-bottom: 10px; /* Space between hint and text box */
-}
+    display: none;
+    margin-bottom: 10px;
         }
 </style>
 </head>
@@ -345,7 +364,9 @@ hintButton.onclick = () => {
                 currentCity = cities[Math.floor(Math.random() * cities.length)];
                 cityDescription.innerText = currentCity.description;
                 cityDescription.style.display = 'block';
+                hintButton.style.display = 'block'; // Show the hint button
                 inputContainer.style.display = 'flex';
+                hintButton.style.display = 'block'; // Show the hint button
                 cityInput.focus();
 
                 submitButton.onclick = () => {
@@ -355,6 +376,8 @@ hintButton.onclick = () => {
                         resultImage.style.display = 'block';
                         cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
                         inputContainer.style.display = 'none';
+                        hintButton.style.display = 'none'; // Hide hint button
+                        hintText.style.display = 'none';   // Hide hint text
                     } else {
                         attempts++;
                         if (attempts < maxAttempts) {
