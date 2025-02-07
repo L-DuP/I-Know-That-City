@@ -7,28 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            overflow: hidden;
             flex-direction: column;
+            overflow: hidden;
+            text-align: center;
         }
-        html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    text-align: center; /* Ensures text is centered */
-}
-.container {
-    max-width: 90%; /* Prevents text from overflowing on smaller screens */
-}
+
+        body {
+            height: 100vh; /* Ensures full viewport height */
+        }
 
         #globe {
             width: 400px; /* Adjust size as needed */
@@ -47,7 +40,7 @@
 
         #cityDescription {
             font-family: 'Sour Gummy', cursive;
-            font-size: 20px; /* Adjust size as needed */
+            font-size: 24px; /* Adjust size as needed */
             margin: 10px 0; /* Space around description */
             text-align: center;
             display: none; /* Hidden initially */
@@ -58,22 +51,13 @@
             border-radius: 10px; /* Rounded corners */
             padding: 20px; /* Padding inside the box */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            position: relative; /* Relative positioning */
-            top: -400px; /* Adjust this value to move the box up */
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center; /* Centers horizontally */
-            align-items: center; /* Centers vertically */
-            text-align: center; /* Ensures text is centered */
         }
 
         #inputContainer {
             display: none; /* Hidden initially */
             flex-direction: column; /* Stack elements vertically */
             align-items: center; /* Center align */
-            margin-top: -350px; /* Adjust this value to move the input box and button up */
+            margin-top: 20px; /* Adjust vertical spacing */
         }
 
         #cityInput {
@@ -90,10 +74,10 @@
 
         #resultImage {
             display: none; /* Hidden initially */
-            margin-top: -350px; /* Space above the image */
+            margin-top: 20px; /* Adjusted space above the image */
             width: 600px; /* Adjust size as needed */
         }
-    </style>
+</style>
 </head>
 <body>
     <div id="title">I Know That City!</div>
