@@ -119,12 +119,16 @@
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
     #cityDescription {
-        font-size: 14px; /* Slightly smaller text */
-        width: 50%; /* Reduce width */
-        max-width: 220px; /* More compressed appearance */
-        padding: 10px; /* Less padding */
-        max-height: 70px; /* Prevent it from taking too much space */
-        overflow-y: auto; /* Allow scrolling if needed */
+        font-size: 12px; /* Even smaller text */
+        width: 65%; /* Reduce width */
+        max-width: 250px; /* More compact */
+        padding: 8px; /* Less padding */
+        max-height: 120px; /* Smaller height */
+        overflow-y: auto; /* Enable scrolling if necessary */
+        position: absolute;
+        top: 45%; /* Centered more */
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
             #globe {
@@ -140,13 +144,13 @@
                 max-width: 320px;
             }
             #cityInput {
-        font-size: 14px;
-        max-width: 250px;
+        font-size: 12px; /* Smaller input text */
+        max-width: 220px; /* More compact */
     }
 
     #submitButton {
-        font-size: 14px;
-        padding: 6px 12px;
+        font-size: 12px;
+        padding: 5px 10px;
     }
 
             #resultImage {
@@ -154,14 +158,12 @@
             }
             
             #hintButton {
-    display: none; /* Initially hidden */
-    background: none;
-    border: none;
-    color: red;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 6px;
-}
+        font-size: 12px;
+        margin-bottom: 10px; /* Space between hint and description */
+        position: absolute;
+        top: 35%; /* Move hint button above description */
+        left: 50%;
+        transform: translateX(-50%);
 
 #hintText {
     font-family: 'Sour Gummy', cursive;
