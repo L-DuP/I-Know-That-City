@@ -119,11 +119,13 @@
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
     #cityDescription {
-        font-size: 12px;
-        width: 65%;
-        padding: 12px;
-        max-width: 300px;
-            }
+        font-size: 14px; /* Slightly smaller text */
+        width: 70%; /* Reduce width */
+        max-width: 280px; /* More compressed appearance */
+        padding: 10px; /* Less padding */
+        max-height: 150px; /* Prevent it from taking too much space */
+        overflow-y: auto; /* Allow scrolling if needed */
+    }
 
             #globe {
                 width: 220px;
