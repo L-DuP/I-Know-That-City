@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=0.8, maximum-scale=0.8, minimum-scale=0.8, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Know That City!</title>
@@ -18,11 +18,6 @@
             flex-direction: column;
             overflow: hidden;
             text-align: center;
-            transform: scale(0.8); /* 80% zoom */
-            transform-origin: top center; /* Keep everything centered */
-            width: 125%; /* Compensate for scaling */
-            height: 125%;
-            overflow: hidden; /* Prevent extra scrolling */
         }
 
         #globe {
@@ -124,7 +119,14 @@
 
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
-    #cityDescription {
+    body {
+        transform: scale(0.8); /* 80% zoom */
+        transform-origin: top center; /* Keep everything centered */
+        width: 125%; /* Compensate for scaling */
+        height: 125%;
+        overflow: hidden; /* Prevent extra scrolling */
+    }    
+            #cityDescription {
         font-size: 12px; /* Even smaller text */
         width: 65%; /* Reduce width */
         max-width: 250px; /* More compact */
