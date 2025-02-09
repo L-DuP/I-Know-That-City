@@ -83,16 +83,25 @@
     cursor: pointer;
         }
 
-        #resultImage {
-    display: none;
-    width: 450px;
-    max-width: 100%;
-    margin-top: 20px; /* Adjust this as needed */
+        #resultContainer {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-        }
+    width: 100%;
+}
+
+#resultText {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px; /* Add space above the image */
+    color: black;
+}
 
         #hintButton {
     display: none; /* Initially hidden */
@@ -115,8 +124,8 @@
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
     #cityDescription {
-        font-size: 16px;
-        width: 85%;
+        font-size: 12px;
+        width: 65%;
         padding: 12px;
         max-width: 300px;
             }
@@ -143,9 +152,25 @@
         padding: 6px 12px;
     }
 
-            #resultImage {
-                width: 300px;
-            }
+            #resultContainer {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+#resultText {
+    font-family: 'Sour Gummy', cursive;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px; /* Add space above the image */
+    color: black;
+}
             
             #hintButton {
     display: none; /* Initially hidden */
@@ -176,6 +201,10 @@
     <div id="inputContainer">
         <input type="text" id="cityInput" placeholder="Guess the city..." />
         <button id="submitButton">Submit</button>
+    </div>
+    <div id="resultContainer">
+    <div id="resultText"></div> <!-- New element for correct message -->
+    <img id="resultImage" src="" alt="City Image" />
     </div>
     <img id="resultImage" src="" alt="City Image" />
 
@@ -374,15 +403,18 @@ hintButton.onclick = () => {
                 cityInput.focus();
 
                 submitButton.onclick = () => {
-                    const userGuess = cityInput.value.trim();
-                    if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
-                        resultImage.src = currentCity.image;
-                        resultImage.style.display = 'block';
-                        cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
-                        inputContainer.style.display = 'none';
-                        hintButton.style.display = 'none'; // Hide hint button
-                        hintText.style.display = 'none';   // Hide hint text
-                    } else {
+    const userGuess = cityInput.value.trim();
+    if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
+        document.getElementById('resultText').innerText = "Correct! The city is " + currentCity.name + ".";
+        resultImage.src = currentCity.image;
+        document.getElementById('resultContainer').style.display = 'flex';
+        inputContainer.style.display = 'none';
+        hintButton.style.display = 'none'; // Hide hint button
+        hintText.style.display = 'none';   // Hide hint text
+    } else {
+        // Wrong answer logic remains unchanged
+    }
+};
                         attempts++;
                         if (attempts < maxAttempts) {
                             const wrongMessage = "Wrong! Try again.";
