@@ -203,6 +203,7 @@
     <div id="resultText"></div> <!-- New element for correct message -->
     <img id="resultImage" src="" alt="City Image" />
     </div>
+    <div id="wikiLink"></div>
     <img id="resultImage" src="" alt="City Image" />
 
     <script>
@@ -409,6 +410,11 @@ hintButton.onclick = () => {
                         inputContainer.style.display = 'none';
                         hintButton.style.display = 'none'; // Hide hint button
                         hintText.style.display = 'none';   // Hide hint text
+
+                        // Create Wikipedia link
+                            const wikiDiv = document.getElementById("wikiLink");
+                            wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
+                            wikiDiv.style.display = "block"; // Show the link
                     } else {
                         attempts++;
                         if (attempts < maxAttempts) {
