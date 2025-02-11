@@ -102,7 +102,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 0; /* Lower than cityDescription */        
+    z-index: 0; /* Lower than cityDescription */  
+    margin-bottom: 20px; /* Ensures space between image and link */        
         }
 
         #hintButton {
@@ -124,7 +125,8 @@
     margin-bottom: 10px;
 
 #wikiLink {
-    margin-top: 50px; /* Ensures spacing */
+    text-align: center;
+    margin-top: 20px; /* Adds consistent space below the image */
 }    
 
         /* -------- MOBILE RESPONSIVENESS -------- */
@@ -418,8 +420,6 @@ hintButton.onclick = () => {
                         // Create Wikipedia link
                             const wikiDiv = document.getElementById("wikiLink");
                             wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
-                            wikiDiv.style.textAlign = "center";  // Center the text
-                            wikiDiv.style.marginTop = "120px";   // Ensure spacing below the image
                             wikiDiv.style.display = "block"; 
                     } else {
                         attempts++;
