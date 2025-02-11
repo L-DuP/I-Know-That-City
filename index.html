@@ -202,8 +202,8 @@
     <div id="resultContainer">
     <div id="resultText"></div> <!-- New element for correct message -->
     <img id="resultImage" src="" alt="City Image" />
-    </div>
     <div id="wikiLink"></div>
+    </div>
     <img id="resultImage" src="" alt="City Image" />
 
     <script>
@@ -414,7 +414,9 @@ hintButton.onclick = () => {
                         // Create Wikipedia link
                             const wikiDiv = document.getElementById("wikiLink");
                             wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
-                            wikiDiv.style.display = "block"; // Show the link
+                            wikiDiv.style.textAlign = "center";  // Center the text
+                            wikiDiv.style.marginTop = "10px";   // Ensure spacing below the image
+                            wikiDiv.style.display = "block"; 
                     } else {
                         attempts++;
                         if (attempts < maxAttempts) {
