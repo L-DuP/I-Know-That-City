@@ -1,0 +1,20 @@
+{
+  "name": "I Know That City!",
+  "short_name": "IKTC!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/images/iosico192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/iosico512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
