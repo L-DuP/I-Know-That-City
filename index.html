@@ -4,7 +4,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="L-DuP Photography">
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/images/iosico192.png">
     <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +30,12 @@
             overflow: hidden; /* Prevent extra scrolling */
             margin-left: -1.5%; /* Shift content slightly left */
         }
+
+        body {
+    touch-action: none;
+}
+
+        
 
         #globe {
             width: 400px;
@@ -216,6 +222,12 @@
     <img id="resultImage" src="" alt="City Image" />
 
     <script>
+        window.addEventListener("keydown", function (e) {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
+        e.preventDefault();
+    }
+});
+        
         if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js');
