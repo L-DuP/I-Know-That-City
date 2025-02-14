@@ -452,6 +452,9 @@ hintButton.onclick = () => {
                 hintButton.style.display = 'block'; // Show the hint button
                 cityInput.focus();
 
+                copyright.style.display = 'block'; // Make it visible again
+            }, 3000); // Wait for 3 seconds before showing the description
+
                 submitButton.onclick = () => {
                     const userGuess = cityInput.value.trim();
                     if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
