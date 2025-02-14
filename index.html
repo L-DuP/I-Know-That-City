@@ -47,7 +47,6 @@
         #globe {
             width: 300px;
             transition: transform 3s ease, opacity 3s ease;
-            cursor: pointer; /* Add pointer cursor for clicking */
         }
 
         /* Description & input container */
@@ -199,6 +198,7 @@
         <div id="correctText"></div> <!-- Correct answer text -->
         <img id="resultImage" src="" alt="City Image" />
         <div id="wikiLink"></div> <!-- Wikipedia link -->
+        <div id="resultText" style="display: none;"></div> <!-- New element for correct message -->
     </div>
 </body>
 
@@ -430,10 +430,6 @@
         }, 3000);
     }
 
-    globe.onclick = () => {
-        startGame(); // Start the game on globe click
-    };
-
     submitButton.onclick = () => {
         const userGuess = cityInput.value.trim();
         attempts++;
@@ -450,7 +446,7 @@
         }
     };
 
-    // Start the game on page load by clicking the globe
-    globe.click();
+    // Start the game
+    startGame();
 </script>
 </html>
