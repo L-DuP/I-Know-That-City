@@ -255,37 +255,53 @@
     const resultMessage = document.getElementById("result"); // Element where the "Game over!" message appears
     
     // Load audio files
+    
+           document.addEventListener("DOMContentLoaded", function () {
+    const globe = document.getElementById("globe");
+    const copyright = document.getElementById("copyright");
+    const inputField = document.getElementById("cityInput");
+    const submitButton = document.getElementById("submit");
+    const resultMessage = document.getElementById("result");
+
+    // Ensure audio elements are user-triggered
     const swooshSound = new Audio("audio/swoosh.mp3");
     const falseSound = new Audio("audio/false.mp3");
     const loseSound = new Audio("audio/lose.mp3");
     const winSound = new Audio("audio/win.mp3");
 
-    let correctCity = "San Francisco"; // Replace this dynamically if needed
+    let correctCity = "San Francisco";
     let attempts = 0;
     const maxAttempts = 3;
 
+    // Ensure all audio can be played after user interaction
+    function playSound(audioElement) {
+        audioElement.currentTime = 0; // Reset playback in case it's interrupted
+        audioElement.volume = 1; // Ensure it's audible
+        audioElement.play().catch(error => console.warn("Audio playback prevented:", error));
+    }
+
     globe.addEventListener("click", function () {
         copyright.style.opacity = "0";
-        swooshSound.play();
+        playSound(swooshSound);
         setTimeout(() => {
             copyright.style.opacity = "1";
         }, 3000);
     });
 
     submitButton.addEventListener("click", function () {
-        const userGuess = inputField.value.trim();
-
-        if (userGuess.toLowerCase() === correctCity.toLowerCase()) {
-            winSound.play(); // Play win sound
-            displayResultImage(); // Show the correct city image
+        const userGuess = inputField.value.trim().toLowerCase();
+        
+        if (userGuess === correctCity.toLowerCase()) {
+            playSound(winSound);
+            displayResultImage();
         } else {
             attempts++;
-            
+
             if (attempts < maxAttempts) {
-                falseSound.play(); // Play wrong answer sound
+                playSound(falseSound); // Play wrong answer sound
                 showTemporaryMessage("Wrong! Try again", 2000);
             } else {
-                loseSound.play(); // Play lose sound on third attempt
+                playSound(loseSound); // Play lose sound on third attempt
                 resultMessage.textContent = `Game over! The correct city was ${correctCity}`;
             }
         }
@@ -294,12 +310,12 @@
     function showTemporaryMessage(message, duration) {
         resultMessage.textContent = message;
         setTimeout(() => {
-            resultMessage.textContent = ""; // Clear message after duration
+            resultMessage.textContent = "";
         }, duration);
     }
 
     function displayResultImage() {
-        // Add logic to show the correct city image
+        // Logic to show the correct city image
     }
 });
 
