@@ -228,7 +228,7 @@
 </style>
 </head>
 <body>
-    <button id="cityGalleryBtn" style="display: none;" onclick="openCityGallery()">City Gallery</button>
+    
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
@@ -267,13 +267,6 @@ const winSound = new Audio("audio/win.mp3");
         setTimeout(() => {
             copyright.style.opacity = "1";
         }, 3000);
-        function showCityGalleryButton() {
-    document.getElementById("cityGalleryBtn").style.display = "block";
-}
-
-function openCityGallery() {
-    window.open("gallery.html", "_blank");
-}
     });
 });
         
@@ -493,17 +486,6 @@ hintButton.onclick = () => {
                         hintButton.style.display = 'none'; // Hide hint button
                         hintText.style.display = 'none';   // Hide hint text
 
-                        function storeGuessedCity(city, imageUrl, wikiLink) {
-    let guessedCities = JSON.parse(localStorage.getItem("guessedCities")) || [];
-    
-    // Check if city is already stored
-    if (!guessedCities.some(c => c.name === city)) {
-        guessedCities.push({ name: city, imageUrl: imageUrl, wikiLink: wikiLink });
-        localStorage.setItem("guessedCities", JSON.stringify(guessedCities));
-    }
-}
-                        storeGuessedCity("San Francisco", "san-francisco.jpg", "https://en.wikipedia.org/wiki/San_Francisco");
-                        
                         const returnButton = document.getElementById('returnButton');
                         returnButton.style.display = 'block';
 
