@@ -437,7 +437,13 @@ hintButton.onclick = () => {
             title.style.opacity = 1;
         };
 
+        const swooshSound = new Audio('audio/swoosh.mp3');
+
         globe.onclick = () => {
+            swooshSound.play();
+
+            const copyright = document.getElementById('copyright');
+            copyright.style.display = 'none'; // Hide copyright text
             globe.style.transform = 'scale(1.5)'; // Increase size
             globe.style.opacity = 0; // Fade out
             title.style.opacity = 0;
@@ -451,6 +457,9 @@ hintButton.onclick = () => {
                 inputContainer.style.display = 'flex';
                 hintButton.style.display = 'block'; // Show the hint button
                 cityInput.focus();
+
+                copyright.style.display = 'block'; // Show copyright text again
+    }, 3000); // Wait for 3 seconds before showing the description
 
                 submitButton.onclick = () => {
                     const userGuess = cityInput.value.trim();
