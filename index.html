@@ -424,6 +424,7 @@ hintButton.onclick = () => {
                 currentCity = cities[Math.floor(Math.random() * cities.length)];
                 cityDescription.innerText = currentCity.description;
                 cityDescription.style.display = 'block';
+                globe.style.zIndex = "0"; // Move it behind other elements
                 hintButton.style.display = 'block'; // Show the hint button
                 inputContainer.style.display = 'flex';
                 hintButton.style.display = 'block'; // Show the hint button
