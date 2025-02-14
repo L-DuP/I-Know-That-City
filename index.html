@@ -111,6 +111,9 @@ html, body {
     justify-content: center;
     margin-top: 20px;
     z-index: 10; /* Higher than other elements */
+    position: relative; /* Ensure relative positioning */
+    z-index: 10; /* Bring it above other elements */
+    margin: 20px; /* Add some spacing */
 }
 
 /* Correct answer text */
@@ -127,6 +130,8 @@ html, body {
     max-width: 500px;
     border-radius: 10px;
     margin-top: 10px;
+    position: relative; /* Ensure it flows with the document */
+    z-index: 10; /* Ensure it's above other elements */
 }
 
 /* Wikipedia link */
