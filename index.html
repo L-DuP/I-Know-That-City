@@ -13,227 +13,157 @@
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-            text-align: center;
-            transform: scale(0.9);
-            transform-origin: center center; /* Keep everything centered */
-            width: 111%; /* Compensate for scaling */
-            height: 111%;
-            overflow: hidden; /* Prevent extra scrolling */
-            margin-left: -1.5%; /* Shift content slightly left */
-        }
-
-        body {
-    touch-action: none;
+        /* Reset */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: center;
 }
 
-        .center-container {
+/* Container to hold title + globe as one unit */
+#title-globe-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
-        #globe {
-            width: 400px;
-            transition: transform 3s ease, opacity 3s ease;
-        }
+/* Title styling */
+#title {
+    font-family: 'Rubik Vinyl', cursive;
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px; /* Space between title and globe */
+}
 
-        #title {
-            font-family: 'Rubik Vinyl', cursive;
-            font-size: 64px;
-            font-weight: bold;
-            color: black;
-            opacity: 0;
-            transition: opacity 1s ease;
-            margin-bottom: 20px;
-        }
+/* Globe styling */
+#globe {
+    width: 300px;
+    transition: transform 3s ease, opacity 3s ease;
+}
 
-        /* Centering the text box and input box together */
-        #textContainer {
+/* Description & input container */
+#textContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    width: 100%;
-    max-width: 500px; /* Reduce max width for a more compact appearance */
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); /* Ensures perfect centering */
-    z-index: 1;        
-        }
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 20px;
+}
 
-        #cityDescription {
+/* City description box */
+#cityDescription {
     font-family: 'Sour Gummy', cursive;
-    font-size: 20px; /* Reduce font size */
+    font-size: 20px;
     text-align: center;
     display: none;
-    width: 75%; /* Reduce width */
+    width: 80%;
     max-width: 450px;
     background-color: white;
     border: 2px solid #ccc;
     border-radius: 10px;
-    padding: 15px; /* Reduce padding */
+    padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px; /* Less space below text */
-    z-index: 1;         
-          
-        }
+}
 
-        #inputContainer {
+/* Input field */
+#cityInput {
+    padding: 10px;
+    font-size: 18px;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 15px;
+}
+
+/* Submit button */
+#submitButton {
+    padding: 10px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Hint button */
+#hintButton {
     display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;        
-        }
-
-        #cityInput {
-    padding: 8px; /* Reduce padding */
-    font-size: 16px; /* Reduce font size */
-    width: 80%; /* Adjust width */
-    max-width: 300px; /* Reduce max width */
-    margin-bottom: 8px; /* Reduce spacing below input */       
-        }
-
-        #submitButton {
-    padding: 8px 16px; /* Reduce button size */
-    font-size: 16px;
-    cursor: pointer;        
-        }
-
-        #resultImage {
-    display: none;
-    width: 450px;
-    max-width: 100%;
-    margin-top: 20px; /* Adjust this as needed */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 0; /* Lower than cityDescription */        
-        }
-
-        #hintButton {
-    display: none; /* Initially hidden */
     background: none;
     border: none;
     color: red;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 6px;
-}
-
-#hintText {
-    font-family: 'Sour Gummy', cursive;
     font-size: 16px;
-    text-align: center;
-    color: black;
-    display: none;
-    margin-bottom: 10px;
-
-#wikiLink {
-    margin-top: 50px; /* Ensures spacing */
-}    
-
-        /* -------- MOBILE RESPONSIVENESS -------- */
-        @media (max-width: 600px) {
-    body {
-    transform: scale(0.9); /* 80% zoom */
-    transform-origin: top center; /* Keep everything centered */
-    width: 125%; /* Compensate for scaling */
-    height: 125%;
-    overflow: hidden; /* Prevent extra scrolling */
+    cursor: pointer;
+    margin-top: 10px;
 }
-            #cityDescription {
-        font-size: 12px; /* Even smaller text */
-        width: 65%; /* Reduce width */
-        max-width: 250px; /* More compact */
-        padding: 8px; /* Less padding */
-        max-height: 120px; /* Smaller height */
-        overflow-y: auto; /* Enable scrolling if necessary */
-        position: absolute;
-        top: 45%; /* Centered more */
-        left: 50%;
-        transform: translate(-50%, -50%);
+
+/* Result image */
+#resultImage {
+    display: none;
+    width: 350px;
+    max-width: 90%;
+    margin-top: 20px;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 600px) {
+    #title {
+        font-size: 42px;
     }
 
-            #globe {
-                width: 220px;
-            }
+    #globe {
+        width: 220px;
+    }
 
-            #title {
-                font-size: 42px;
-            }
+    #cityDescription {
+        font-size: 16px;
+        width: 75%;
+    }
 
-            #textContainer {
-                width: 90%;
-                max-width: 320px;
-            }
-            #cityInput {
-        font-size: 12px; /* Smaller input text */
-        max-width: 220px; /* More compact */
+    #cityInput {
+        font-size: 14px;
+        max-width: 250px;
     }
 
     #submitButton {
-        font-size: 12px;
-        padding: 5px 10px;
+        font-size: 14px;
+        padding: 8px 12px;
     }
 
-            #resultImage {
-                width: 300px;
-            }
-            
-            #hintButton {
-        font-size: 12px;
-        margin-bottom: 10px; /* Space between hint and description */
-        position: absolute;
-        top: 35%; /* Move hint button above description */
-        left: 50%;
-        transform: translateX(-50%);
-
-#hintText {
-    font-family: 'Sour Gummy', cursive;
-    font-size: 16px;
-    text-align: center;
-    color: black;
-    display: none;
-    margin-bottom: 10px;
-        }
+    #resultImage {
+        width: 280px;
+    }
+}
 </style>
 </head>
 <body>
-    <div class="center-container">
-    <h1 class="title">I Know That City!</h1>
-    <img src="globe.png" class="globe">
+    <div id="title-globe-container">
+        <div id="title">I Know That City!</div>
+        <img id="globe" src="images/globe.png" alt="Spinning Globe" />
     </div>
-    <div id="title">I Know That City!</div>
-    <img id="globe" src="images/globe.png" alt="Spinning Globe" />
+
     <button id="hintButton">Hint</button>
     <div id="hintText"></div>
-    <div id="cityDescription"></div>
-    <div id="inputContainer">
-        <input type="text" id="cityInput" placeholder="Guess the city..." />
-        <button id="submitButton">Submit</button>
+
+    <div id="textContainer">
+        <div id="cityDescription"></div>
+        <div id="inputContainer">
+            <input type="text" id="cityInput" placeholder="Guess the city..." />
+            <button id="submitButton">Submit</button>
+        </div>
     </div>
+
     <div id="resultContainer">
-    <div id="resultText"></div> <!-- New element for correct message -->
-    <img id="resultImage" src="" alt="City Image" />
-    <div id="wikiLink"></div>
+        <img id="resultImage" src="" alt="City Image" />
+        <div id="wikiLink"></div>
     </div>
-    <img id="resultImage" src="" alt="City Image" />
+</body>
 
     <script>
         window.addEventListener("keydown", function (e) {
