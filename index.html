@@ -388,27 +388,6 @@ hintButton.onclick = () => {
         const maxAttempts = 3;
         let currentCity;
 
-        function displayResult(isCorrect, city) {
-    const resultText = document.getElementById("resultText");
-    const resultImage = document.getElementById("resultImage");
-    const wikiLink = document.getElementById("wikiLink");
-
-    if (isCorrect) {
-        resultText.innerText = `Correct! The city is ${city.name}.`;
-        resultImage.src = city.image; // Use city.image directly
-        resultImage.style.display = "block"; // Show the result image
-        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(city.name)}" target="_blank">Learn more about ${city.name}</a>`;
-        wikiLink.style.display = "block"; // Show the Wikipedia link
-    } else {
-        resultText.innerText = "Wrong! Try again.";
-        resultImage.style.display = "none"; // Hide the image if wrong
-        wikiLink.style.display = "none"; // Hide the link if wrong
-    }
-
-    // Center the result text and image
-    resultText.style.display = "block"; // Ensure result text is displayed
-}
-        
         // Fade in the title
         window.onload = () => {
             title.style.opacity = 1;
@@ -476,6 +455,9 @@ hintButton.onclick = () => {
                 });
             }, 3000); // Wait for 3 seconds before showing the description
         };
+    </script>
+</body>
+</html>
         document.getElementById("globe").addEventListener("click", function() {
     this.style.transform = "scale(2)";
     this.style.opacity = "0";
