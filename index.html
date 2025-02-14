@@ -246,10 +246,147 @@
     </div>
     <img id="resultImage" src="" alt="City Image" />
     <div id="copyright">© 2025 Lars Weigmann</div>
+    <h2>City Gallery</h2>
+<div id="cityGallery"></div>
     <script>
 const falseSound = new Audio("audio/false.mp3");
 const loseSound = new Audio("audio/lose.mp3");
 const winSound = new Audio("audio/win.mp3");
+
+        // City data (name, image, Wikipedia link)
+const citiesData = {
+    "san francisco": { 
+        image: "images/san_francisco.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/San_Francisco"  
+    },
+    "los angeles": { 
+        image: "images/los_angeles.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Los_Angeles"  
+    },
+    "prague": { 
+        image: "images/prague.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Prague"  
+    },
+    "vienna": { 
+        image: "images/vienna.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Vienna"  
+    },
+    "amsterdam": { 
+        image: "images/amsterdam.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Amsterdam"  
+    },
+    "cape town": { 
+        image: "images/cape_town.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Cape_Town"  
+    },
+    "rome": { 
+        image: "images/rome.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Rome"  
+    },
+    "barcelona": { 
+        image: "images/barcelona.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Barcelona"  
+    },
+    "bergen": { 
+        image: "images/bergen.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Bergen"  
+    },
+    "ghent": { 
+        image: "images/ghent.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Ghent"  
+    },
+    "nice": { 
+        image: "images/nice.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Nice,_France"  
+    },
+    "lyon": { 
+        image: "images/lyon.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Lyon"  
+    },
+    "bangkok": { 
+        image: "images/bangkok.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Bangkok"  
+    },
+    "honolulu": { 
+        image: "images/honolulu.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Honolulu"  
+    },
+    "tokyo": { 
+        image: "images/tokyo.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Tokyo"  
+    },
+    "washington, d.c.": { 
+        image: "images/washington_d_c.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Washington,_D.C."  
+    },
+    "halifax": { 
+        image: "images/halifax.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Halifax,_Nova_Scotia"  
+    },
+    "toronto": { 
+        image: "images/toronto.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Toronto"  
+    },
+    "mexico city": { 
+        image: "images/mexico_city.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Mexico_City"  
+    },
+    "denver": { 
+        image: "images/denver.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Denver"  
+    },
+    "miami": { 
+        image: "images/miami.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Miami"  
+    },
+    "newport": { 
+        image: "images/newport.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Newport,_Rhode_Island"  
+    },
+    "philadelphia": { 
+        image: "images/philadelphia.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Philadelphia"  
+    },
+    "salt lake city": { 
+        image: "images/salt_lake_city.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Salt_Lake_City"  
+    },
+    "berlin": { 
+        image: "images/berlin.jpg", 
+        wiki: "https://en.wikipedia.org/wiki/Berlin"  
+    }
+
+        // Function to retrieve guessed cities from localStorage
+function getGuessedCities() {
+    return JSON.parse(localStorage.getItem("guessedCities")) || [];
+}
+        // Function to update the gallery
+function updateCityGallery() {
+    const galleryContainer = document.getElementById("cityGallery");
+    galleryContainer.innerHTML = ""; // Clear previous content
+
+    const guessedCities = getGuessedCities();
+    
+    if (guessedCities.length === 0) {
+        galleryContainer.innerHTML = "<p>No cities guessed yet.</p>";
+        return;
+    }
+
+    guessedCities.forEach(city => {
+        const cityData = citiesData[city];
+        if (cityData) {
+            const cityElement = document.createElement("div");
+            cityElement.classList.add("gallery-item");
+
+            cityElement.innerHTML = `
+                <img src="${cityData.image}" alt="${city}" width="150">
+                <p><a href="${cityData.wiki}" target="_blank">${city}</a></p>
+            `;
+
+            galleryContainer.appendChild(cityElement);
+        }
+    });
+}
         
         document.addEventListener("DOMContentLoaded", function () {
     const globe = document.getElementById("globe"); // Adjust the ID if needed
@@ -485,6 +622,14 @@ hintButton.onclick = () => {
                         inputContainer.style.display = 'none';
                         hintButton.style.display = 'none'; // Hide hint button
                         hintText.style.display = 'none';   // Hide hint text
+                        updateCityGallery();
+                        // Store correct city in localStorage if not already guessed
+        let guessedCities = getGuessedCities();
+        if (!guessedCities.includes(userInput)) {
+            guessedCities.push(userInput);
+            localStorage.setItem("guessedCities", JSON.stringify(guessedCities));
+        }
+        
 
                         const returnButton = document.getElementById('returnButton');
                         returnButton.style.display = 'block';
@@ -523,7 +668,8 @@ hintButton.onclick = () => {
                         }
                     }
                 };
-
+                // Call updateCityGallery on page load to show previously guessed cities
+document.addEventListener("DOMContentLoaded", updateCityGallery);
                 // Add event listener for Enter key
                 cityInput.addEventListener('keydown', (event) => {
                     if (event.key === 'Enter') {
