@@ -134,6 +134,18 @@
     display: none;
     margin-bottom: 10px;
 
+    #copyright {
+    position: fixed;
+    bottom: 10px;   /* Adjust distance from bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px; /* Adjust font size as needed */
+    color: rgba(255, 255, 255, 0.7); /* Change color and transparency */
+    z-index: 1000; /* Ensure it appears above other elements */
+    display: block; /* Ensure it's always visible */
+    pointer-events: none; /* Prevents interaction */
+}
+
 #wikiLink {
     margin-top: 50px; /* Ensures spacing */
 }    
@@ -205,6 +217,7 @@
 </style>
 </head>
 <body>
+    <div id="copyright" style="display: none;">© 2025 Lars Weigmann</div>
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
