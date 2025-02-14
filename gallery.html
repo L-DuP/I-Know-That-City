@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Gallery</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .city-container { display: flex; flex-wrap: wrap; justify-content: center; }
+        .city-card { margin: 10px; padding: 10px; border: 1px solid #ccc; width: 200px; }
+        .city-card img { width: 100%; height: auto; border-radius: 5px; }
+        .city-card a { display: block; margin-top: 5px; text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Your Guessed Cities</h1>
+    <div class="city-container" id="cityGallery"></div>
+    <script>
+        function loadCityGallery() {
+            let guessedCities = JSON.parse(localStorage.getItem("guessedCities")) || [];
+            let galleryDiv = document.getElementById("cityGallery");
+
+            if (guessedCities.length === 0) {
+                galleryDiv.innerHTML = "<p>You haven't guessed any cities yet!</p>";
+                return;
+            }
+
+            guessedCities.forEach(city => {
+                let cityCard = document.createElement("div");
+                cityCard.className = "city-card";
+                cityCard.innerHTML = `
+                    <img src="${city.imageUrl}" alt="${city.name}">
+                    <a href="${city.wikiLink}" target="_blank">${city.name}</a>
+                `;
+                galleryDiv.appendChild(cityCard);
+            });
+        }
+
+        loadCityGallery();
+    </script>
+</body>
+</html>
