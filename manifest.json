@@ -7,12 +7,12 @@
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "icons/icon.png",
-      "sizes": "192x192",
+      "src": "https://res.cloudinary.com/dnlzwbs5w/image/upload/v1739536633/akfpjppjp7cxu7n3zd7g.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512x512.png",
+      "src": "https://res.cloudinary.com/dnlzwbs5w/image/upload/v1739536633/akfpjppjp7cxu7n3zd7g.png",
       "sizes": "512x512",
       "type": "image/png"
     }
