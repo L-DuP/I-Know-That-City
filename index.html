@@ -47,6 +47,7 @@
         #globe {
             width: 300px;
             transition: transform 3s ease, opacity 3s ease;
+            cursor: pointer; /* Add pointer cursor for clicking */
         }
 
         /* Description & input container */
@@ -198,7 +199,6 @@
         <div id="correctText"></div> <!-- Correct answer text -->
         <img id="resultImage" src="" alt="City Image" />
         <div id="wikiLink"></div> <!-- Wikipedia link -->
-        <div id="resultText" style="display: none;"></div> <!-- New element for correct message -->
     </div>
 </body>
 
@@ -395,4 +395,62 @@
     function displayResult(isCorrect, city) {
         if (isCorrect) {
             correctText.innerText = `Correct! The city is ${city.name}.`;
-            r
+            resultImage.src = city.image; // Assuming the image path is correct
+            resultImage.style.display = 'block'; // Show the result image
+            wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(city.name)}" target="_blank">Learn more about ${city.name}</a>`;
+            wikiLink.style.display = 'block'; // Show the Wikipedia link
+        } else {
+            correctText.innerText = "Wrong! Try again.";
+            resultImage.style.display = 'none'; // Hide the image if wrong
+            wikiLink.style.display = 'none'; // Hide the link if wrong
+        }
+
+        // Center the result text and image
+        resultContainer.style.display = 'flex';
+        resultContainer.style.flexDirection = 'column';
+        resultContainer.style.alignItems = 'center';
+        resultContainer.style.justifyContent = 'center';
+    }
+
+    function startGame() {
+        // Randomly select a city from the array
+        currentCity = cities[Math.floor(Math.random() * cities.length)];
+        cityDescription.innerText = currentCity.description;
+        cityDescription.style.display = 'block';
+        inputContainer.style.display = 'block';
+        globe.style.transition = 'transform 3s ease, opacity 3s ease';
+        globe.style.transform = 'scale(1.1)';
+        globe.style.opacity = '0';
+        title.style.opacity = '0';
+        setTimeout(() => {
+            globe.style.opacity = '1';
+            globe.style.transform = 'scale(1)';
+            title.style.opacity = '1';
+            textContainer.style.display = 'flex'; // Show the input container
+        }, 3000);
+    }
+
+    globe.onclick = () => {
+        startGame(); // Start the game on globe click
+    };
+
+    submitButton.onclick = () => {
+        const userGuess = cityInput.value.trim();
+        attempts++;
+
+        if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
+            displayResult(true, currentCity); // Correct guess
+        } else {
+            displayResult(false, currentCity); // Incorrect guess
+
+            if (attempts >= maxAttempts) {
+                alert(`You've used all your attempts! The city was ${currentCity.name}.`);
+                startGame(); // Restart the game
+            }
+        }
+    };
+
+    // Start the game on page load by clicking the globe
+    globe.click();
+</script>
+</html>
