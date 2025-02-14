@@ -454,6 +454,15 @@ hintButton.onclick = () => {
                 });
             }, 3000); // Wait for 3 seconds before showing the description
         };
+        document.getElementById("globe").addEventListener("click", function() {
+    this.style.transform = "scale(2)";
+    this.style.opacity = "0";
+
+    setTimeout(() => {
+        this.style.display = "none";
+        document.getElementById("textContainer").style.display = "flex"; // <-- NOW IT SHOWS UP!
+    }, 3000);
+});
     </script>
 </body>
 </html>
