@@ -137,23 +137,6 @@
 #wikiLink {
     margin-top: 50px; /* Ensures spacing */
 }    
-    #returnButton {
-    position: absolute;
-    top: 10px; /* Adjust the distance from the top */
-    left: 10px; /* Adjust the distance from the left */
-    background-color: white; /* Background color */
-    color: black; /* Text color */
-    border: 2px solid #ccc; /* Border style */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Padding */
-    cursor: pointer; /* Pointer cursor on hover */
-    z-index: 2; /* Ensure it's above other elements */
-    display: none; /* Initially hidden */
-}
-
-#returnButton:hover {
-    background-color: #f0f0f0; /* Light background on hover */
-}
 
         /* -------- MOBILE RESPONSIVENESS -------- */
         @media (max-width: 600px) {
@@ -222,6 +205,7 @@
 </style>
 </head>
 <body>
+    <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 20px; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
     <button id="hintButton">Hint</button>
@@ -231,7 +215,6 @@
         <input type="text" id="cityInput" placeholder="Guess the city..." />
         <button id="submitButton">Submit</button>
     </div>
-    <button id="returnButton" style="display: none;">Return</button>
     <div id="resultContainer">
     <div id="resultText"></div> <!-- New element for correct message -->
     <img id="resultImage" src="" alt="City Image" />
@@ -456,21 +439,20 @@ hintButton.onclick = () => {
                         hintButton.style.display = 'none'; // Hide hint button
                         hintText.style.display = 'none';   // Hide hint text
 
-                        // Show the return button
-    const returnButton = document.getElementById('returnButton');
-    returnButton.style.display = 'block';
+                        const returnButton = document.getElementById('returnButton');
+                        returnButton.style.display = 'block';
 
+                        // Add event listener for the return button to reload the page
+                        returnButton.onclick = () => {
+                        location.reload();
+                        };
+                        
                         // Create Wikipedia link
                             const wikiDiv = document.getElementById("wikiLink");
                             wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
                             wikiDiv.style.textAlign = "center";  // Center the text
                             wikiDiv.style.marginTop = "190px";   // Ensure spacing below the image
                             wikiDiv.style.display = "block"; 
-
-                        // Add functionality to return button
-    returnButton.onclick = () => {
-        location.reload(); // Reload the page
-        
                     } else {
                         attempts++;
                         if (attempts < maxAttempts) {
