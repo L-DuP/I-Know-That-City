@@ -35,25 +35,7 @@
     touch-action: none;
 }
 
-        #cityGallery {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-height: 60%;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    overflow-y: auto;
-    display: none;
-    transition: all 0.5s ease-in-out;
-}
-
-.hidden {
-    display: none;
-}
+        
 
         #globe {
             width: 400px;
@@ -246,16 +228,7 @@
 </style>
 </head>
 <body>
-    <button id="cityGalleryButton" style="display: none;">City Gallery</button>
-<div id="cityGallery" class="hidden">
-    <h2>Your Discovered Cities</h2>
-    <div id="cityGalleryList"></div>
-</div>
-    <div id="cityGallery" class="hidden">
-    <button id="closeGallery">X</button>
-    <h2>Your Discovered Cities</h2>
-    <div id="cityGalleryList"></div>
-</div>
+    
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
@@ -289,10 +262,6 @@ const winSound = new Audio("audio/win.mp3");
 
         // Play the swoosh sound
         swooshSound.play();
-
-        setTimeout(() => {
-    document.getElementById("cityGalleryButton").style.display = "block";
-}, 3000); // Show button after globe animation is done
 
         // Show the copyright text again after 3 seconds
         setTimeout(() => {
@@ -563,60 +532,6 @@ hintButton.onclick = () => {
                 });
             }, 3000); // Wait for 3 seconds before showing the description
         };
-
-        function saveGuessedCity(cityName) {
-    let guessedCities = JSON.parse(localStorage.getItem("guessedCities")) || [];
-    
-    if (!guessedCities.includes(cityName)) {
-        guessedCities.push(cityName);
-        localStorage.setItem("guessedCities", JSON.stringify(guessedCities));
-    }
-}
-        function getGuessedCities() {
-    return JSON.parse(localStorage.getItem("guessedCities")) || [];
-}
-        function updateCityGallery() {
-    let cities = getGuessedCities();
-    let galleryList = document.getElementById("cityGalleryList");
-    
-    // Clear previous content
-    galleryList.innerHTML = "";
-
-    if (cities.length === 0) {
-        galleryList.innerHTML = "<p>You haven't discovered any cities yet!</p>";
-        return;
-    }
-
-    cities.forEach(city => {
-        let cityDiv = document.createElement("div");
-        cityDiv.innerHTML = `
-            <h3>${city}</h3>
-            <img src="images/${city.toLowerCase()}.jpg" width="200">
-            <a href="https://en.wikipedia.org/wiki/${city}" target="_blank">Learn More</a>
-        `;
-        galleryList.appendChild(cityDiv);
-    });
-}
-
-    document.getElementById("cityGallery").classList.remove("hidden");
-}
-        document.getElementById("cityGalleryButton").addEventListener("click", function () {
-    let gallery = document.getElementById("cityGallery");
-    
-    if (gallery.classList.contains("hidden")) {
-        updateCityGallery(); // Populate before showing
-        gallery.classList.remove("hidden");
-    } else {
-        gallery.classList.add("hidden");
-    }
-});
-
-        document.getElementById("closeGallery").addEventListener("click", function () {
-    document.getElementById("cityGallery").classList.add("hidden");
-});
-        
-        document.getElementById("cityGalleryButton").addEventListener("click", updateCityGallery);
-        document.getElementById("cityGalleryButton").style.display = "block";
         document.getElementById('copyright').style.display = 'block'; // Ensure it's displayed
     </script>
 </body>
