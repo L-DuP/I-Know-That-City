@@ -469,20 +469,7 @@ hintButton.onclick = () => {
 
                         // Add functionality to return button
     returnButton.onclick = () => {
-        // Hide the result container and return button
-        resultImage.style.display = 'none';
-        wikiDiv.style.display = 'none';
-        returnButton.style.display = 'none';
-
-        // Reset attempts and other game variables
-        attempts = 0;
-        cityDescription.style.display = 'none';
-        inputContainer.style.display = 'none';
-        hintButton.style.display = 'none';
-
-        // Show the title and globe again
-        globe.style.display = 'block';
-        title.style.opacity = 1; // Fade in the title
+        location.reload(); // Reload the page
         
                     } else {
                         attempts++;
