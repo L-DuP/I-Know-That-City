@@ -198,6 +198,9 @@ html, body {
         <div id="correctText"></div> <!-- "That's correct, the city is..." -->
         <img id="resultImage" src="" alt="City Image" />
         <div id="wikiLink"></div>
+        <div id="resultText" style="display: none;"></div> <!-- New element for correct message -->
+        <img id="resultImage" src="" alt="City Image" style="display: none;" />
+        <div id="wikiLink" style="display: none;"></div> <!-- Ensure this is present -->
     </div>
 </body>
 
@@ -387,6 +390,27 @@ hintButton.onclick = () => {
         const maxAttempts = 3;
         let currentCity;
 
+        function displayResult(isCorrect, city) {
+    const resultText = document.getElementById("resultText");
+    const resultImage = document.getElementById("resultImage");
+    const wikiLink = document.getElementById("wikiLink");
+
+    if (isCorrect) {
+        resultText.innerText = `Correct! The city is ${city}.`;
+        resultImage.src = `images/${city}.png`; // Assuming you have images named after cities
+        resultImage.style.display = "block"; // Show the result image
+        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${city}" target="_blank">Learn more about ${city}</a>`;
+        wikiLink.style.display = "block"; // Show the Wikipedia link
+    } else {
+        resultText.innerText = "Wrong! Try again.";
+        resultImage.style.display = "none"; // Hide the image if wrong
+        wikiLink.style.display = "none"; // Hide the link if wrong
+    }
+
+    // Center the result text and image
+    resultText.style.display = "block"; // Ensure result text is displayed
+}
+        
         // Fade in the title
         window.onload = () => {
             title.style.opacity = 1;
