@@ -161,14 +161,13 @@
 }
             #copyright {
     position: fixed;
-    bottom: 10px;   /* Adjust distance from bottom */
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 12px; /* Adjust font size as needed */
-    color: rgba(255, 255, 255, 0.7); /* Change color and transparency */
-    z-index: 1000; /* Ensure it appears above other elements */
-    display: block; /* Ensure it's always visible */
-    pointer-events: none; /* Prevents interaction */
+    font-size: 20px; /* Increase font size for visibility */
+    color: black; /* Change to a solid color */
+    z-index: 1000; /* Keep it on top of other elements */
+    pointer-events: none; /* Keep this to prevent interaction */
 }
             #cityDescription {
         font-size: 12px; /* Even smaller text */
@@ -228,7 +227,7 @@
 </style>
 </head>
 <body>
-    <div id="copyright" style="display: none;">© 2025 Lars Weigmann</div>
+    
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
@@ -245,7 +244,7 @@
     <div id="wikiLink"></div>
     </div>
     <img id="resultImage" src="" alt="City Image" />
-
+    <div id="copyright">© 2025 Lars Weigmann</div>
     <script>
         window.addEventListener("keydown", function (e) {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
@@ -507,6 +506,7 @@ hintButton.onclick = () => {
                 });
             }, 3000); // Wait for 3 seconds before showing the description
         };
+        document.getElementById('copyright').style.display = 'block'; // Ensure it's displayed
     </script>
 </body>
 </html>
