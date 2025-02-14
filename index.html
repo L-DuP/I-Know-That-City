@@ -26,7 +26,7 @@ html, body {
     text-align: center;
 }
 
-/* Container to hold title + globe as one unit */
+/* Container for title + globe */
 #title-globe-container {
     display: flex;
     flex-direction: column;
@@ -34,16 +34,16 @@ html, body {
     justify-content: center;
 }
 
-/* Title styling */
+/* Title */
 #title {
     font-family: 'Rubik Vinyl', cursive;
     font-size: 48px;
     font-weight: bold;
     color: black;
-    margin-bottom: 15px; /* Space between title and globe */
+    margin-bottom: 15px;
 }
 
-/* Globe styling */
+/* Globe */
 #globe {
     width: 300px;
     transition: transform 3s ease, opacity 3s ease;
@@ -58,6 +58,7 @@ html, body {
     width: 90%;
     max-width: 500px;
     margin-top: 20px;
+    display: none; /* HIDDEN AT START */
 }
 
 /* City description box */
@@ -65,7 +66,6 @@ html, body {
     font-family: 'Sour Gummy', cursive;
     font-size: 20px;
     text-align: center;
-    display: none;
     width: 80%;
     max-width: 450px;
     background-color: white;
@@ -103,12 +103,42 @@ html, body {
     margin-top: 10px;
 }
 
+/* RESULT CONTAINER */
+#resultContainer {
+    display: none; /* HIDDEN AT START */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Correct answer text */
+#correctText {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 /* Result image */
 #resultImage {
     display: none;
-    width: 350px;
-    max-width: 90%;
-    margin-top: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Wikipedia link */
+#wikiLink {
+    display: none;
+    margin-top: 10px;
+}
+
+#wikiLink a {
+    text-decoration: none;
+    font-size: 18px;
+    color: blue;
+    font-weight: bold;
 }
 
 /* Mobile-specific adjustments */
@@ -136,8 +166,13 @@ html, body {
         padding: 8px 12px;
     }
 
+    #correctText {
+        font-size: 18px;
+    }
+
     #resultImage {
-        width: 280px;
+        width: 90%;
+        max-width: 400px;
     }
 }
 </style>
@@ -160,6 +195,7 @@ html, body {
     </div>
 
     <div id="resultContainer">
+        <div id="correctText"></div> <!-- "That's correct, the city is..." -->
         <img id="resultImage" src="" alt="City Image" />
         <div id="wikiLink"></div>
     </div>
