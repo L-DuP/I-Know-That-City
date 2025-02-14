@@ -8,7 +8,7 @@
     <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=0.9, maximum-scale=0.9, minimum-scale=0.9, user-scalable=no">
     <title>I Know That City!</title>
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
@@ -222,6 +222,40 @@
     <img id="resultImage" src="" alt="City Image" />
 
     <script>
+        window.onload = () => {
+    title.style.opacity = 1;
+
+    // Simulate double tap at bottom right of the screen on mobile
+    if (/Mobi|Android/i.test(navigator.userAgent)) { // Check if on mobile
+        setTimeout(() => {
+            simulateDoubleTap(window.innerWidth - 10, window.innerHeight - 10);
+        }, 500); // Delay to ensure the page is fully loaded
+    }
+};
+
+function simulateDoubleTap(x, y) {
+    const touchEvent = (type) => {
+        return new TouchEvent(type, {
+            touches: [new Touch({
+                identifier: Date.now(),
+                target: document.body,
+                clientX: x,
+                clientY: y,
+                radiusX: 5,
+                radiusY: 5
+            })]
+        });
+    };
+
+    document.body.dispatchEvent(touchEvent("touchstart"));
+    document.body.dispatchEvent(touchEvent("touchend"));
+
+    setTimeout(() => {
+        document.body.dispatchEvent(touchEvent("touchstart"));
+        document.body.dispatchEvent(touchEvent("touchend"));
+    }, 100); // Delay between taps to mimic a real double-tap
+}
+        
         window.addEventListener("keydown", function (e) {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
         e.preventDefault();
