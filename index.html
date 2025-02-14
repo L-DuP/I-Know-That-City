@@ -247,6 +247,25 @@
     <img id="resultImage" src="" alt="City Image" />
     <div id="copyright">© 2025 Lars Weigmann</div>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const globe = document.getElementById("globe"); // Adjust the ID if needed
+    const copyright = document.getElementById("copyright"); // Make sure this ID matches your HTML
+    const swooshSound = new Audio("audio/swoosh.mp3");
+
+    globe.addEventListener("click", function () {
+        // Hide the copyright text
+        copyright.style.opacity = "0";
+
+        // Play the swoosh sound
+        swooshSound.play();
+
+        // Show the copyright text again after 3 seconds
+        setTimeout(() => {
+            copyright.style.opacity = "1";
+        }, 3000);
+    });
+});
+        
         window.addEventListener("keydown", function (e) {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
         e.preventDefault();
