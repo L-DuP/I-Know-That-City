@@ -384,19 +384,19 @@ hintButton.onclick = () => {
         ];
 
         let attempts = 0;
-const maxAttempts = 3;
-let currentCity;
+        const maxAttempts = 3;
+        let currentCity;
 
-function displayResult(isCorrect, city) {
+        function displayResult(isCorrect, city) {
     const resultText = document.getElementById("resultText");
     const resultImage = document.getElementById("resultImage");
     const wikiLink = document.getElementById("wikiLink");
 
     if (isCorrect) {
         resultText.innerText = `Correct! The city is ${city}.`;
-        resultImage.src = `images/${city}.png`; // Ensure the correct image path
+        resultImage.src = `images/${city}.png`; // Assuming you have images named after cities
         resultImage.style.display = "block"; // Show the result image
-        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(city)}" target="_blank">Learn more about ${city}</a>`;
+        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${city}" target="_blank">Learn more about ${city}</a>`;
         wikiLink.style.display = "block"; // Show the Wikipedia link
     } else {
         resultText.innerText = "Wrong! Try again.";
@@ -407,67 +407,72 @@ function displayResult(isCorrect, city) {
     // Center the result text and image
     resultText.style.display = "block"; // Ensure result text is displayed
 }
+        
+        // Fade in the title
+        window.onload = () => {
+            title.style.opacity = 1;
+        };
 
-// Fade in the title
-window.onload = () => {
-    title.style.opacity = 1;
-};
+        globe.onclick = () => {
+            globe.style.transform = 'scale(1.5)'; // Increase size
+            globe.style.opacity = 0; // Fade out
+            title.style.opacity = 0;
 
-globe.onclick = () => {
-    globe.style.transform = 'scale(1.5)'; // Increase size
-    globe.style.opacity = 0; // Fade out
-    title.style.opacity = 0;
-
-    setTimeout(() => {
-        globe.style.display = 'none'; // Remove globe from the DOM
-        currentCity = cities[Math.floor(Math.random() * cities.length)];
-        cityDescription.innerText = currentCity.description;
-        cityDescription.style.display = 'block';
-        hintButton.style.display = 'block'; // Show the hint button
-        inputContainer.style.display = 'flex';
-        hintButton.style.display = 'block'; // Show the hint button
-        cityInput.focus();
-    }, 3000); // Wait for 3 seconds before showing the description
-};
-
-// Bind submit button click event
-submitButton.onclick = () => {
-    const userGuess = cityInput.value.trim();
-    if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
-        displayResult(true, currentCity.name); // Call displayResult for correct guess
-        cityDescription.style.marginBottom = "380px"; // Moves text up
-        inputContainer.style.display = 'none';
-        hintButton.style.display = 'none'; // Hide hint button
-        hintText.style.display = 'none';   // Hide hint text
-    } else {
-        attempts++;
-        if (attempts < maxAttempts) {
-            const wrongMessage = "Wrong! Try again.";
-            cityDescription.innerText = wrongMessage;
-
-            // Hide the wrong message after 2 seconds and show the original description again
             setTimeout(() => {
-                cityDescription.innerText = currentCity.description; // Show original description again
-                cityInput.value = ''; // Clear input for the next guess
-            }, 2000); // Change message back after 2 seconds
-        } else {
-            cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
-            inputContainer.style.display = 'none'; // Hide input container
-            // Reset to the start after 3 seconds
-            setTimeout(() => {
-                location.reload(); // Reload the page
-            }, 3000); // Change page after 3 seconds
-        }
-    }
-};
+                globe.style.display = 'none'; // Remove globe from the DOM
+                currentCity = cities[Math.floor(Math.random() * cities.length)];
+                cityDescription.innerText = currentCity.description;
+                cityDescription.style.display = 'block';
+                hintButton.style.display = 'block'; // Show the hint button
+                inputContainer.style.display = 'flex';
+                hintButton.style.display = 'block'; // Show the hint button
+                cityInput.focus();
 
-// Add event listener for Enter key
-cityInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        submitButton.click(); // Trigger the click event of the submit button
-    }
-});
+                submitButton.onclick = () => {
+                    const userGuess = cityInput.value.trim();
+                    if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
+                        resultImage.src = currentCity.image;
+                        resultImage.style.display = 'block';
+                        cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
+                        cityDescription.style.marginBottom = "380px"; // Moves text up
+                        inputContainer.style.display = 'none';
+                        hintButton.style.display = 'none'; // Hide hint button
+                        hintText.style.display = 'none';   // Hide hint text
 
+                        // Create Wikipedia link
+                            const wikiDiv = document.getElementById("wikiLink");
+                            wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
+                            wikiDiv.style.textAlign = "center";  // Center the text
+                            wikiDiv.style.marginTop = "190px";   // Ensure spacing below the image
+                            wikiDiv.style.display = "block"; 
+                    } else {
+                        attempts++;
+                        if (attempts < maxAttempts) {
+                            const wrongMessage = "Wrong! Try again.";
+                            cityDescription.innerText = wrongMessage;
+
+                            // Hide the wrong message after 2 seconds and show the original description again
+                            setTimeout(() => {
+                                cityDescription.innerText = currentCity.description; // Show original description again
+                                cityInput.value = ''; // Clear input for the next guess
+                            }, 2000); // Change message back after 2 seconds
+                        } else {
+                            cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
+                            inputContainer.style.display = 'none'; // Hide input container
+                            // Reset to the start after 3 seconds
+                            setTimeout(() => {
+                                location.reload(); // Reload the page
+                            }, 3000); // Change page after 3 seconds
+                        }
+                    }
+                };
+
+                // Add event listener for Enter key
+                cityInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        submitButton.click(); // Trigger the click event of the submit button
+                    }
+                });
             }, 3000); // Wait for 3 seconds before showing the description
         };
         document.getElementById("globe").addEventListener("click", function() {
