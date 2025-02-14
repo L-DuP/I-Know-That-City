@@ -388,16 +388,16 @@ hintButton.onclick = () => {
         const maxAttempts = 3;
         let currentCity;
 
-        function displayResult(isCorrect, image) {
+        function displayResult(isCorrect, city) {
     const resultText = document.getElementById("resultText");
     const resultImage = document.getElementById("resultImage");
     const wikiLink = document.getElementById("wikiLink");
 
     if (isCorrect) {
-        resultText.innerText = `Correct! The city is ${city}.`;
-        resultImage.src = `images/${city}.png`; // Assuming you have images named after cities
+        resultText.innerText = `Correct! The city is ${city.name}.`;
+        resultImage.src = city.image; // Use city.image directly
         resultImage.style.display = "block"; // Show the result image
-        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${city}" target="_blank">Learn more about ${city}</a>`;
+        wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(city.name)}" target="_blank">Learn more about ${city.name}</a>`;
         wikiLink.style.display = "block"; // Show the Wikipedia link
     } else {
         resultText.innerText = "Wrong! Try again.";
