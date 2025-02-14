@@ -247,6 +247,10 @@
     <img id="resultImage" src="" alt="City Image" />
     <div id="copyright">© 2025 Lars Weigmann</div>
     <script>
+const falseSound = new Audio("audio/false.mp3");
+const loseSound = new Audio("audio/lose.mp3");
+const winSound = new Audio("audio/win.mp3");
+        
         document.addEventListener("DOMContentLoaded", function () {
     const globe = document.getElementById("globe"); // Adjust the ID if needed
     const copyright = document.getElementById("copyright"); // Make sure this ID matches your HTML
@@ -476,6 +480,7 @@ hintButton.onclick = () => {
                         resultImage.src = currentCity.image;
                         resultImage.style.display = 'block';
                         cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
+                        winSound.play();
                         cityDescription.style.marginBottom = "380px"; // Moves text up
                         inputContainer.style.display = 'none';
                         hintButton.style.display = 'none'; // Hide hint button
@@ -499,6 +504,7 @@ hintButton.onclick = () => {
                         attempts++;
                         if (attempts < maxAttempts) {
                             const wrongMessage = "Wrong! Try again.";
+                            falseSound.play();
                             cityDescription.innerText = wrongMessage;
 
                             // Hide the wrong message after 2 seconds and show the original description again
@@ -508,6 +514,7 @@ hintButton.onclick = () => {
                             }, 2000); // Change message back after 2 seconds
                         } else {
                             cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
+                            loseSound.play();
                             inputContainer.style.display = 'none'; // Hide input container
                             // Reset to the start after 3 seconds
                             setTimeout(() => {
