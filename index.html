@@ -436,9 +436,6 @@ hintButton.onclick = () => {
         window.onload = () => {
             title.style.opacity = 1;
         };
-
-        const swooshSound = new Audio('audio/swoosh.mp3');
-
         globe.onclick = () => {
             swooshSound.play();
 
@@ -457,9 +454,6 @@ hintButton.onclick = () => {
                 inputContainer.style.display = 'flex';
                 hintButton.style.display = 'block'; // Show the hint button
                 cityInput.focus();
-
-                copyright.style.display = 'block'; // Show copyright text again
-    }, 3000); // Wait for 3 seconds before showing the description
 
                 submitButton.onclick = () => {
                     const userGuess = cityInput.value.trim();
