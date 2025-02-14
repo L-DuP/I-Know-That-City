@@ -228,9 +228,16 @@
 </style>
 </head>
 <body>
+    <!-- City Gallery Button (Hidden Initially) -->
+<button id="cityGalleryButton" style="display: none;" onclick="toggleCityGallery()">City Gallery</button>
+
+<!-- City Gallery Container (Hidden Initially) -->
+<div id="cityGalleryContainer" style="display: none;">
     <h2>City Gallery</h2>
     <div id="cityGallery"></div>
     <button onclick="clearCityGallery()">Reset Gallery</button>
+</div>
+    
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
@@ -358,18 +365,18 @@ const citiesData = {
     // Add the remaining 17 cities here
 };
 
-// Function to retrieve guessed cities from localStorage
+// Retrieve guessed cities from localStorage
 function getGuessedCities() {
     return JSON.parse(localStorage.getItem("guessedCities")) || [];
 }
 
-// Function to update the gallery
+// Function to update the City Gallery
 function updateCityGallery() {
     const galleryContainer = document.getElementById("cityGallery");
     galleryContainer.innerHTML = ""; // Clear previous content
 
     const guessedCities = getGuessedCities();
-    
+
     if (guessedCities.length === 0) {
         galleryContainer.innerHTML = "<p>No cities guessed yet.</p>";
         return;
@@ -389,6 +396,12 @@ function updateCityGallery() {
             galleryContainer.appendChild(cityElement);
         }
     });
+}
+
+// Toggle the City Gallery visibility
+function toggleCityGallery() {
+    const galleryContainer = document.getElementById("cityGalleryContainer");
+    galleryContainer.style.display = (galleryContainer.style.display === "none" || galleryContainer.style.display === "") ? "block" : "none";
 }
         function clearCityGallery() {
     localStorage.removeItem("guessedCities");
@@ -625,6 +638,18 @@ hintButton.onclick = () => {
                         resultImage.style.display = 'block';
                         cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
                         winSound.play();
+                        let guessedCities = getGuessedCities();
+        if (!guessedCities.includes(userInput)) {
+            guessedCities.push(userInput);
+            localStorage.setItem("guessedCities", JSON.stringify(guessedCities));
+        }
+                        // Show the "City Gallery" button (since a city was guessed correctly)
+        document.getElementById("cityGalleryButton").style.display = "block";
+
+        // Update the City Gallery
+        updateCityGallery();
+    } else {
+        attempts++;
                         cityDescription.style.marginBottom = "380px"; // Moves text up
                         inputContainer.style.display = 'none';
                         hintButton.style.display = 'none'; // Hide hint button
@@ -667,7 +692,12 @@ hintButton.onclick = () => {
                         }
                     }
                 };
-
+// Call updateCityGallery on page load (only when needed)
+document.addEventListener("DOMContentLoaded", () => {
+    if (getGuessedCities().length > 0) {
+        document.getElementById("cityGalleryButton").style.display = "block";
+    }
+});
                 // Add event listener for Enter key
                 cityInput.addEventListener('keydown', (event) => {
                     if (event.key === 'Enter') {
