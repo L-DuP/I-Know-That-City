@@ -160,14 +160,15 @@
     overflow: hidden; /* Prevent extra scrolling */
 }
             #copyright {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 20px; /* Increase font size for visibility */
+    position: fixed; /* Fixes the position to the viewport */
+    bottom: 0; /* Positions it at the bottom of the screen */
+    left: 50%; /* Centers it horizontally */
+    transform: translateX(-50%); /* Adjusts position to perfectly center */
+    font-size: 12px; /* Adjust font size as needed */
     color: black; /* Change to a solid color */
     z-index: 1000; /* Keep it on top of other elements */
-    pointer-events: none; /* Keep this to prevent interaction */
+    pointer-events: none; /* Prevent interaction */
+    margin: 10px 0; /* Optional: Add some spacing if needed */
 }
             #cityDescription {
         font-size: 12px; /* Even smaller text */
