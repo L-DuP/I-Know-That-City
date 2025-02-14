@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dnlzwbs5w/image/upload/v1739536633/akfpjppjp7cxu7n3zd7g.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dnlzwbs5/image/upload/v1739536633/akfpjppjp7cxu7n3zd7g.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="I Know That City!">
@@ -14,169 +14,169 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
     <style>
         /* Reset */
-html, body {
-    height: 100%;
-    margin: 0;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-    text-align: center;
-}
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            text-align: center;
+        }
 
-/* Container for title + globe */
-#title-globe-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+        /* Container for title + globe */
+        #title-globe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* Title */
-#title {
-    font-family: 'Rubik Vinyl', cursive;
-    font-size: 48px;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 15px;
-}
+        /* Title */
+        #title {
+            font-family: 'Rubik Vinyl', cursive;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 15px;
+        }
 
-/* Globe */
-#globe {
-    width: 300px;
-    transition: transform 3s ease, opacity 3s ease;
-}
+        /* Globe */
+        #globe {
+            width: 300px;
+            transition: transform 3s ease, opacity 3s ease;
+        }
 
-/* Description & input container */
-#textContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    max-width: 500px;
-    margin-top: 20px;
-    display: none; /* HIDDEN AT START */
-}
+        /* Description & input container */
+        #textContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 500px;
+            margin-top: 20px;
+            display: none; /* HIDDEN AT START */
+        }
 
-/* City description box */
-#cityDescription {
-    font-family: 'Sour Gummy', cursive;
-    font-size: 20px;
-    text-align: center;
-    width: 80%;
-    max-width: 450px;
-    background-color: white;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        /* City description box */
+        #cityDescription {
+            font-family: 'Sour Gummy', cursive;
+            font-size: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 450px;
+            background-color: white;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-/* Input field */
-#cityInput {
-    padding: 10px;
-    font-size: 18px;
-    width: 80%;
-    max-width: 300px;
-    margin-top: 15px;
-}
+        /* Input field */
+        #cityInput {
+            padding: 10px;
+            font-size: 18px;
+            width: 80%;
+            max-width: 300px;
+            margin-top: 15px;
+        }
 
-/* Submit button */
-#submitButton {
-    padding: 10px 16px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 10px;
-}
+        /* Submit button */
+        #submitButton {
+            padding: 10px 16px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-/* Hint button */
-#hintButton {
-    display: none;
-    background: none;
-    border: none;
-    color: red;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
+        /* Hint button */
+        #hintButton {
+            display: none;
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-/* RESULT CONTAINER */
-#resultContainer {
-    display: none; /* HIDDEN AT START */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    z-index: 10; /* Higher than other elements */
-}
+        /* RESULT CONTAINER */
+        #resultContainer {
+            display: none; /* HIDDEN AT START */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            z-index: 10; /* Higher than other elements */
+        }
 
-/* Correct answer text */
-#correctText {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        /* Correct answer text */
+        #correctText {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-/* Result image */
-#resultImage {
-    display: none;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
+        /* Result image */
+        #resultImage {
+            display: none;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
 
-/* Wikipedia link */
-#wikiLink {
-    display: none;
-    margin-top: 10px;
-}
+        /* Wikipedia link */
+        #wikiLink {
+            display: none;
+            margin-top: 10px;
+        }
 
-#wikiLink a {
-    text-decoration: none;
-    font-size: 18px;
-    color: blue;
-    font-weight: bold;
-}
+        #wikiLink a {
+            text-decoration: none;
+            font-size: 18px;
+            color: blue;
+            font-weight: bold;
+        }
 
-/* Mobile-specific adjustments */
-@media (max-width: 600px) {
-    #title {
-        font-size: 42px;
-    }
+        /* Mobile-specific adjustments */
+        @media (max-width: 600px) {
+            #title {
+                font-size: 42px;
+            }
 
-    #globe {
-        width: 220px;
-    }
+            #globe {
+                width: 220px;
+            }
 
-    #cityDescription {
-        font-size: 16px;
-        width: 75%;
-    }
+            #cityDescription {
+                font-size: 16px;
+                width: 75%;
+            }
 
-    #cityInput {
-        font-size: 14px;
-        max-width: 250px;
-    }
+            #cityInput {
+                font-size: 14px;
+                max-width: 250px;
+            }
 
-    #submitButton {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
+            #submitButton {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
 
-    #correctText {
-        font-size: 18px;
-    }
+            #correctText {
+                font-size: 18px;
+            }
 
-    #resultImage {
-        width: 90%;
-        max-width: 400px;
-    }
-}
-</style>
+            #resultImage {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="title-globe-container">
@@ -204,24 +204,25 @@ html, body {
 
     <script>
         window.addEventListener("keydown", function (e) {
-    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
-        e.preventDefault();
-    }
-});
-        
-        if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js');
-  });
-}
-        
-        const hintButton = document.getElementById('hintButton');
-const hintText = document.getElementById('hintText');
+            if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Space"].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
 
-hintButton.onclick = () => {
-    hintText.innerText = "Country of the city: " + currentCity.country;
-    hintText.style.display = "block";
-};
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+
+        const hintButton = document.getElementById('hintButton');
+        const hintText = document.getElementById('hintText');
+
+        hintButton.onclick = () => {
+            hintText.innerText = "Country of the city: " + currentCity.country;
+            hintText.style.display = "block";
+        };
+
         const globe = document.getElementById('globe');
         const title = document.getElementById('title');
         const cityDescription = document.getElementById('cityDescription');
