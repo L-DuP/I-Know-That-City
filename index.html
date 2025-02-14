@@ -159,6 +159,17 @@
     height: 125%;
     overflow: hidden; /* Prevent extra scrolling */
 }
+            #copyright {
+    position: fixed;
+    bottom: 10px;   /* Adjust distance from bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px; /* Adjust font size as needed */
+    color: rgba(255, 255, 255, 0.7); /* Change color and transparency */
+    z-index: 1000; /* Ensure it appears above other elements */
+    display: block; /* Ensure it's always visible */
+    pointer-events: none; /* Prevents interaction */
+}
             #cityDescription {
         font-size: 12px; /* Even smaller text */
         width: 65%; /* Reduce width */
