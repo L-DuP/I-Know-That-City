@@ -251,6 +251,11 @@
     <h2>Your Discovered Cities</h2>
     <div id="cityGalleryList"></div>
 </div>
+    <div id="cityGallery" class="hidden">
+    <button id="closeGallery">X</button>
+    <h2>Your Discovered Cities</h2>
+    <div id="cityGalleryList"></div>
+</div>
     <button id="returnButton" style="display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 20; cursor: pointer;">Return</button>
     <div id="title">I Know That City!</div>
     <img id="globe" src="images/globe.png" alt="Spinning Globe" />
@@ -284,6 +289,10 @@ const winSound = new Audio("audio/win.mp3");
 
         // Play the swoosh sound
         swooshSound.play();
+
+        setTimeout(() => {
+    document.getElementById("cityGalleryButton").style.display = "block";
+}, 3000); // Show button after globe animation is done
 
         // Show the copyright text again after 3 seconds
         setTimeout(() => {
@@ -569,7 +578,14 @@ hintButton.onclick = () => {
         function updateCityGallery() {
     let cities = getGuessedCities();
     let galleryList = document.getElementById("cityGalleryList");
+    
+    // Clear previous content
     galleryList.innerHTML = "";
+
+    if (cities.length === 0) {
+        galleryList.innerHTML = "<p>You haven't discovered any cities yet!</p>";
+        return;
+    }
 
     cities.forEach(city => {
         let cityDiv = document.createElement("div");
@@ -580,9 +596,25 @@ hintButton.onclick = () => {
         `;
         galleryList.appendChild(cityDiv);
     });
+}
 
     document.getElementById("cityGallery").classList.remove("hidden");
 }
+        document.getElementById("cityGalleryButton").addEventListener("click", function () {
+    let gallery = document.getElementById("cityGallery");
+    
+    if (gallery.classList.contains("hidden")) {
+        updateCityGallery(); // Populate before showing
+        gallery.classList.remove("hidden");
+    } else {
+        gallery.classList.add("hidden");
+    }
+});
+
+        document.getElementById("closeGallery").addEventListener("click", function () {
+    document.getElementById("cityGallery").classList.add("hidden");
+});
+        
         document.getElementById("cityGalleryButton").addEventListener("click", updateCityGallery);
         document.getElementById("cityGalleryButton").style.display = "block";
         document.getElementById('copyright').style.display = 'block'; // Ensure it's displayed
