@@ -388,73 +388,55 @@ hintButton.onclick = () => {
         const maxAttempts = 3;
         let currentCity;
 
-        // Fade in the title
-        window.onload = () => {
-            title.style.opacity = 1;
-        };
+        function displayResult(correct, city) {
+            const resultContainer = document.getElementById("resultContainer");
+            const resultText = document.getElementById("resultText");
+            const wikiLink = document.getElementById("wikiLink");
 
-        globe.onclick = () => {
-            globe.style.transform = 'scale(1.5)'; // Increase size
-            globe.style.opacity = 0; // Fade out
-            title.style.opacity = 0;
+            if (correct) {
+                resultText.style.display = "block";
+                resultText.innerText = "Correct! The city is " + city.name + ".";
+                resultImage.src = city.image; // Set the image source to the correct city's image
+                resultImage.style.display = "block"; // Show the image
+                wikiLink.innerHTML = `<a href="https://en.wikipedia.org/wiki/${city.name.replace(" ", "_")}" target="_blank">Learn more on Wikipedia</a>`;
+                wikiLink.style.display = "block"; // Show the Wikipedia link
+            } else {
+                resultText.innerText = "Wrong! Try again";
+            }
 
+            resultContainer.style.display = "flex";
+        }
+
+        function startGame() {
+            attempts = 0; // Reset attempts
+            currentCity = cities[Math.floor(Math.random() * cities.length)];
+            cityDescription.innerText = currentCity.description;
+            document.getElementById("textContainer").style.display = "flex";
+            globe.style.transition = "transform 3s ease, opacity 3s ease";
+            globe.style.transform = "scale(1.5)"; // Scale up for better effect
+            globe.style.opacity = "0"; // Fade out after 3 seconds
             setTimeout(() => {
-                globe.style.display = 'none'; // Remove globe from the DOM
-                currentCity = cities[Math.floor(Math.random() * cities.length)];
-                cityDescription.innerText = currentCity.description;
-                cityDescription.style.display = 'block';
-                hintButton.style.display = 'block'; // Show the hint button
-                inputContainer.style.display = 'flex';
-                hintButton.style.display = 'block'; // Show the hint button
-                cityInput.focus();
+                globe.style.display = "none"; // Hide globe after fade out
+            }, 3000); // Match the transition time
+        }
 
-                submitButton.onclick = () => {
-                    const userGuess = cityInput.value.trim();
-                    if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
-                        resultImage.src = currentCity.image;
-                        resultImage.style.display = 'block';
-                        cityDescription.innerText = "Correct! The city is " + currentCity.name + ".";
-                        cityDescription.style.marginBottom = "380px"; // Moves text up
-                        inputContainer.style.display = 'none';
-                        hintButton.style.display = 'none'; // Hide hint button
-                        hintText.style.display = 'none';   // Hide hint text
+        submitButton.onclick = () => {
+            const userGuess = cityInput.value.trim();
+            attempts++;
 
-                        // Create Wikipedia link
-                            const wikiDiv = document.getElementById("wikiLink");
-                            wikiDiv.innerHTML = `<p><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(currentCity.name)}" target="_blank" style="font-family: 'Sour Gummy', cursive; font-size: 18px; text-decoration: none; color: blue;">Learn more about ${currentCity.name}</a></p>`;
-                            wikiDiv.style.textAlign = "center";  // Center the text
-                            wikiDiv.style.marginTop = "190px";   // Ensure spacing below the image
-                            wikiDiv.style.display = "block"; 
-                    } else {
-                        attempts++;
-                        if (attempts < maxAttempts) {
-                            const wrongMessage = "Wrong! Try again.";
-                            cityDescription.innerText = wrongMessage;
-
-                            // Hide the wrong message after 2 seconds and show the original description again
-                            setTimeout(() => {
-                                cityDescription.innerText = currentCity.description; // Show original description again
-                                cityInput.value = ''; // Clear input for the next guess
-                            }, 2000); // Change message back after 2 seconds
-                        } else {
-                            cityDescription.innerText = "Game over! The correct city was " + currentCity.name + ".";
-                            inputContainer.style.display = 'none'; // Hide input container
-                            // Reset to the start after 3 seconds
-                            setTimeout(() => {
-                                location.reload(); // Reload the page
-                            }, 3000); // Change page after 3 seconds
-                        }
-                    }
-                };
-
-                // Add event listener for Enter key
-                cityInput.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter') {
-                        submitButton.click(); // Trigger the click event of the submit button
-                    }
-                });
-            }, 3000); // Wait for 3 seconds before showing the description
+            if (userGuess.toLowerCase() === currentCity.name.toLowerCase()) {
+                displayResult(true, currentCity); // Correct guess
+            } else if (attempts < maxAttempts) {
+                displayResult(false);
+                setTimeout(() => {
+                    cityDescription.innerText = currentCity.description; // Show description again
+                }, 2000); // Delay before showing the description again
+            } else {
+                displayResult(false);
+                cityInput.disabled = true; // Disable input after max attempts
+            }
         };
+
+        window.onload = startGame;
     </script>
-</body>
 </html>
